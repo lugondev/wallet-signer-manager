@@ -7,8 +7,8 @@ import (
 	"github.com/hashicorp/vault/api"
 )
 
-func (c *HashicorpVaultClient) GetKey(id string) (*api.Secret, error) {
-	secret, err := c.client.Logical().Read(c.pathKeys(id))
+func (c *HashicorpVaultClient) GetWallet(id string) (*api.Secret, error) {
+	secret, err := c.client.Logical().Read(c.pathWallets(id))
 	if err != nil {
 		return nil, parseErrorResponse(err)
 	}
@@ -16,8 +16,8 @@ func (c *HashicorpVaultClient) GetKey(id string) (*api.Secret, error) {
 	return secret, nil
 }
 
-func (c *HashicorpVaultClient) CreateKey(data map[string]interface{}) (*api.Secret, error) {
-	secret, err := c.client.Logical().Write(c.pathKeys(""), data)
+func (c *HashicorpVaultClient) CreateWallet(data map[string]interface{}) (*api.Secret, error) {
+	secret, err := c.client.Logical().Write(c.pathWallets(""), data)
 	if err != nil {
 		return nil, parseErrorResponse(err)
 	}
@@ -25,8 +25,8 @@ func (c *HashicorpVaultClient) CreateKey(data map[string]interface{}) (*api.Secr
 	return secret, nil
 }
 
-func (c *HashicorpVaultClient) ImportKey(data map[string]interface{}) (*api.Secret, error) {
-	secret, err := c.client.Logical().Write(c.pathKeys("import"), data)
+func (c *HashicorpVaultClient) ImportWallet(data map[string]interface{}) (*api.Secret, error) {
+	secret, err := c.client.Logical().Write(c.pathWallets("import"), data)
 	if err != nil {
 		return nil, parseErrorResponse(err)
 	}
@@ -34,8 +34,8 @@ func (c *HashicorpVaultClient) ImportKey(data map[string]interface{}) (*api.Secr
 	return secret, nil
 }
 
-func (c *HashicorpVaultClient) UpdateKey(id string, data map[string]interface{}) (*api.Secret, error) {
-	secret, err := c.client.Logical().Write(c.pathKeys(id), data)
+func (c *HashicorpVaultClient) UpdateWallet(id string, data map[string]interface{}) (*api.Secret, error) {
+	secret, err := c.client.Logical().Write(c.pathWallets(id), data)
 	if err != nil {
 		return nil, parseErrorResponse(err)
 	}
@@ -43,8 +43,8 @@ func (c *HashicorpVaultClient) UpdateKey(id string, data map[string]interface{})
 	return secret, nil
 }
 
-func (c *HashicorpVaultClient) DestroyKey(id string) error {
-	_, err := c.client.Logical().Delete(path.Join(c.pathKeys(id), "destroy"))
+func (c *HashicorpVaultClient) DestroyWallet(id string) error {
+	_, err := c.client.Logical().Delete(path.Join(c.pathWallets(id), "destroy"))
 	if err != nil {
 		return parseErrorResponse(err)
 	}
@@ -52,8 +52,8 @@ func (c *HashicorpVaultClient) DestroyKey(id string) error {
 	return nil
 }
 
-func (c *HashicorpVaultClient) ListKeys() (*api.Secret, error) {
-	secret, err := c.client.Logical().List(c.pathKeys(""))
+func (c *HashicorpVaultClient) ListWallets() (*api.Secret, error) {
+	secret, err := c.client.Logical().List(c.pathWallets(""))
 	if err != nil {
 		return nil, parseErrorResponse(err)
 	}
@@ -62,7 +62,7 @@ func (c *HashicorpVaultClient) ListKeys() (*api.Secret, error) {
 }
 
 func (c *HashicorpVaultClient) Sign(id string, data []byte) (*api.Secret, error) {
-	secret, err := c.client.Logical().Write(path.Join(c.pathKeys(id), "sign"), map[string]interface{}{
+	secret, err := c.client.Logical().Write(path.Join(c.pathWallets(id), "sign"), map[string]interface{}{
 		dataLabel: base64.URLEncoding.EncodeToString(data),
 	})
 	if err != nil {
@@ -72,6 +72,6 @@ func (c *HashicorpVaultClient) Sign(id string, data []byte) (*api.Secret, error)
 	return secret, nil
 }
 
-func (c *HashicorpVaultClient) pathKeys(suffix string) string {
-	return path.Join(c.mountPoint, "keys", suffix)
+func (c *HashicorpVaultClient) pathWallets(suffix string) string {
+	return path.Join(c.mountPoint, "wallets", suffix)
 }

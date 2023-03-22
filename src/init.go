@@ -2,6 +2,7 @@ package src
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/lugondev/signer-key-manager/src/auth"
 	rolesapi "github.com/lugondev/signer-key-manager/src/auth/api/manifest"
@@ -29,6 +30,7 @@ func initialize(
 	if err != nil {
 		return err
 	}
+	fmt.Println("manifests: ", manifests)
 
 	// Note that order is important here as stores depend on the existing vaults, do not use a switch!
 

@@ -3,6 +3,8 @@ package hashicorp
 import (
 	"context"
 	"encoding/base64"
+	"fmt"
+	"github.com/ethereum/go-ethereum/common/hexutil"
 	"path"
 
 	"github.com/lugondev/signer-key-manager/pkg/errors"
@@ -13,15 +15,15 @@ import (
 )
 
 const (
-	idLabel         = "id"
-	curveLabel      = "curve"
-	algorithmLabel  = "signing_algorithm"
-	tagsLabel       = "tags"
-	publicKeyLabel  = "public_key"
-	privateKeyLabel = "private_key"
-	signatureLabel  = "signature"
-	createdAtLabel  = "created_at"
-	updatedAtLabel  = "updated_at"
+	idLabel                  = "id"
+	tagsLabel                = "tags"
+	publicKeyLabel           = "public_key"
+	compressedPublicKeyLabel = "compressed_public_key"
+	namespaceLabel           = "namespace"
+	privateKeyLabel          = "private_key"
+	signatureLabel           = "signature"
+	createdAtLabel           = "created_at"
+	updatedAtLabel           = "updated_at"
 )
 
 type Store struct {
@@ -39,7 +41,7 @@ func New(client hashicorp.PluginClient, logger log.Logger) *Store {
 }
 
 func (s *Store) Create(_ context.Context, id string, attr *entities.Attributes) (*entities.Wallet, error) {
-	res, err := s.client.CreateKey(map[string]interface{}{
+	res, err := s.client.CreateWallet(map[string]interface{}{
 		idLabel:   id,
 		tagsLabel: attr.Tags,
 	})
@@ -53,10 +55,11 @@ func (s *Store) Create(_ context.Context, id string, attr *entities.Attributes) 
 
 func (s *Store) Import(_ context.Context, id string, privKey []byte, attr *entities.Attributes) (*entities.Wallet, error) {
 
-	res, err := s.client.ImportKey(map[string]interface{}{
+	fmt.Println("Importing key: ", id, " ", hexutil.Encode(privKey))
+	res, err := s.client.ImportWallet(map[string]interface{}{
 		idLabel:         id,
 		tagsLabel:       attr.Tags,
-		privateKeyLabel: base64.URLEncoding.EncodeToString(privKey),
+		privateKeyLabel: hexutil.Encode(privKey)[2:],
 	})
 	if err != nil {
 		errMessage := "failed to import Hashicorp key"
@@ -70,7 +73,7 @@ func (s *Store) Import(_ context.Context, id string, privKey []byte, attr *entit
 func (s *Store) Get(_ context.Context, id string) (*entities.Wallet, error) {
 	logger := s.logger.With("id", id)
 
-	res, err := s.client.GetKey(id)
+	res, err := s.client.GetWallet(id)
 	if err != nil {
 		errMessage := "failed to get Hashicorp key"
 		logger.WithError(err).Error(errMessage)
@@ -87,7 +90,7 @@ func (s *Store) Get(_ context.Context, id string) (*entities.Wallet, error) {
 }
 
 func (s *Store) List(_ context.Context, _, _ uint64) ([]string, error) {
-	res, err := s.client.ListKeys()
+	res, err := s.client.ListWallets()
 	if err != nil {
 		errMessage := "failed to list Hashicorp keys"
 		s.logger.WithError(err).Error(errMessage)
@@ -112,7 +115,7 @@ func (s *Store) List(_ context.Context, _, _ uint64) ([]string, error) {
 }
 
 func (s *Store) Update(_ context.Context, id string, attr *entities.Attributes) (*entities.Wallet, error) {
-	res, err := s.client.UpdateKey(id, map[string]interface{}{
+	res, err := s.client.UpdateWallet(id, map[string]interface{}{
 		tagsLabel: attr.Tags,
 	})
 	if err != nil {
@@ -149,7 +152,7 @@ func (s *Store) Restore(_ context.Context, _ string) error {
 }
 
 func (s *Store) Destroy(_ context.Context, id string) error {
-	err := s.client.DestroyKey(path.Join(id))
+	err := s.client.DestroyWallet(path.Join(id))
 	if err != nil {
 		errMessage := "failed to permanently delete Hashicorp key"
 		s.logger.WithError(err).Error(errMessage)
@@ -177,12 +180,4 @@ func (s *Store) Sign(_ context.Context, id string, data []byte) ([]byte, error) 
 	}
 
 	return signature, nil
-}
-
-func (s *Store) Encrypt(_ context.Context, id string, data []byte) ([]byte, error) {
-	return nil, errors.ErrNotImplemented
-}
-
-func (s *Store) Decrypt(_ context.Context, id string, data []byte) ([]byte, error) {
-	return nil, errors.ErrNotImplemented
 }

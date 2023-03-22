@@ -10,6 +10,7 @@ type WalletStore interface {
 	Create(ctx context.Context, id string, attr *entities.Attributes) (*entities.Wallet, error)
 
 	// Import imports an externally created wallet
+
 	Import(ctx context.Context, id string, privKey []byte, attr *entities.Attributes) (*entities.Wallet, error)
 
 	// Get gets a wallet
@@ -38,10 +39,4 @@ type WalletStore interface {
 
 	// Sign signs data using the specified wallet (not exposed in the API)
 	Sign(ctx context.Context, pubkey string, data []byte) ([]byte, error)
-
-	// Encrypt encrypts any arbitrary data using a specified account
-	Encrypt(ctx context.Context, pubkey string, data []byte) ([]byte, error)
-
-	// Decrypt decrypts a single block of encrypted data.
-	Decrypt(ctx context.Context, pubkey string, data []byte) ([]byte, error)
 }

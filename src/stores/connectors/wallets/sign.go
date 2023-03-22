@@ -44,7 +44,7 @@ func (c Connector) sign(ctx context.Context, pubkey string, data []byte) ([]byte
 		return nil, err
 	}
 
-	signature, err := c.store.Sign(ctx, acc.KeyID, data)
+	signature, err := c.store.Sign(ctx, hexutil.Encode(acc.CompressedPublicKey), data)
 	if err != nil {
 		return nil, err
 	}

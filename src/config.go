@@ -1,6 +1,7 @@
 package src
 
 import (
+	"encoding/json"
 	"github.com/lugondev/signer-key-manager/pkg/http/server"
 	"github.com/lugondev/signer-key-manager/src/infra/api-key/csv"
 	"github.com/lugondev/signer-key-manager/src/infra/jwt/jose"
@@ -18,4 +19,14 @@ type Config struct {
 	APIKey   *csv.Config
 	TLS      *tls.Config
 	Manifest *manifestreader.Config
+}
+
+func (c Config) ToJson() string {
+	// convert struct to json
+	jsonByte, err := json.Marshal(c)
+	if err != nil {
+		return ""
+	}
+
+	return string(jsonByte)
 }

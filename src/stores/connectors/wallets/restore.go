@@ -2,6 +2,7 @@ package wallets
 
 import (
 	"context"
+	"github.com/ethereum/go-ethereum/common/hexutil"
 
 	"github.com/lugondev/signer-key-manager/src/auth/entities"
 
@@ -34,7 +35,7 @@ func (c Connector) Restore(ctx context.Context, pubkey string) error {
 			return err
 		}
 
-		err = c.store.Restore(ctx, acc.KeyID)
+		err = c.store.Restore(ctx, hexutil.Encode(acc.CompressedPublicKey))
 		if err != nil && !errors.IsNotSupportedError(err) { // If the underlying store does not support restoring, we only restore in DB
 			return err
 		}

@@ -1,25 +1,23 @@
 package hashicorp
 
 import (
-	"encoding/base64"
+	"github.com/ethereum/go-ethereum/common"
 	"time"
 
 	"github.com/lugondev/signer-key-manager/src/stores/entities"
-
-	"github.com/lugondev/signer-key-manager/pkg/errors"
 
 	"github.com/hashicorp/vault/api"
 )
 
 func parseAPISecretToKey(hashicorpSecret *api.Secret) (*entities.Wallet, error) {
-	pubKey, err := base64.URLEncoding.DecodeString(hashicorpSecret.Data[publicKeyLabel].(string))
-	if err != nil {
-		return nil, errors.HashicorpVaultError("failed to decode public key")
-	}
+	pubKey := hashicorpSecret.Data[publicKeyLabel].(string)
+	compressedPublicKey := hashicorpSecret.Data[compressedPublicKeyLabel].(string)
+	namespace := hashicorpSecret.Data[namespaceLabel].(string)
 
 	key := &entities.Wallet{
-		PublicKey:           pubKey,
-		CompressedPublicKey: pubKey,
+		Namespaces:          namespace,
+		PublicKey:           common.FromHex(pubKey),
+		CompressedPublicKey: common.FromHex(compressedPublicKey),
 		Metadata: &entities.Metadata{
 			Disabled: false,
 		},

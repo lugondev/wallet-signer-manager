@@ -6,8 +6,6 @@ import (
 
 const (
 	HashicorpVaultType = "hashicorp"
-	AzureVaultType     = "azure"
-	AWSVaultType       = "aws"
 )
 
 type Vault struct {

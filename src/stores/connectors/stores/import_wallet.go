@@ -16,8 +16,6 @@ func (c *Connector) ImportWallets(ctx context.Context, storeName string, userInf
 	logger := c.logger.With("store_name", storeName)
 	logger.Info("importing ethereum accounts...")
 
-	// TODO: Uncomment when authManager no longer a runnable
-	// permissions := c.authManager.UserPermissions(userInfo)
 	resolver := authorizator.New(userInfo.Permissions, userInfo.Tenant, c.logger)
 
 	store, err := c.getWalletStore(ctx, storeName, resolver)

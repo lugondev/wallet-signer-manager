@@ -1,7 +1,7 @@
 package entities
 
 type Wallet struct {
-	KeyID               string
+	Namespaces          string
 	PublicKey           []byte
 	CompressedPublicKey []byte
 	Metadata            *Metadata

@@ -2,6 +2,7 @@ package wallets
 
 import (
 	"context"
+	"github.com/ethereum/go-ethereum/common/hexutil"
 
 	"github.com/lugondev/signer-key-manager/src/stores/database/models"
 
@@ -33,6 +34,6 @@ func (c Connector) Create(ctx context.Context, id string, attr *entities.Attribu
 		return nil, err
 	}
 
-	logger.With("pubkey", acc.CompressedPublicKey, "key_id", acc.KeyID).Info("wallet created successfully")
+	logger.With("pubkey", hexutil.Encode(acc.CompressedPublicKey)).Info("wallet created successfully")
 	return acc, nil
 }

@@ -189,3 +189,6 @@ pki-deps:
 
 generate-pki: pki-deps
 	@sh scripts/generate-pki.sh
+
+run-server-dev:
+	go run main.go run

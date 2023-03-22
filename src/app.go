@@ -3,7 +3,6 @@ package src
 import (
 	"context"
 	"crypto/x509"
-
 	"github.com/lugondev/signer-key-manager/pkg/app"
 	authapp "github.com/lugondev/signer-key-manager/src/auth/app"
 	authtypes "github.com/lugondev/signer-key-manager/src/auth/entities"

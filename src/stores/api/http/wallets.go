@@ -1,6 +1,7 @@
 package http
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/lugondev/signer-key-manager/src/stores/api/formatters"
@@ -32,7 +33,7 @@ func (h *WalletsHandler) Register(r *mux.Router) {
 	r.Methods(http.MethodPost).Path("").HandlerFunc(h.create)
 	r.Methods(http.MethodGet).Path("").HandlerFunc(h.list)
 	r.Methods(http.MethodPost).Path("/import").HandlerFunc(h.importAccount)
-	r.Methods(http.MethodPost).Path("/{address}/sign-message").HandlerFunc(h.sign)
+	r.Methods(http.MethodPost).Path("/{address}/sign").HandlerFunc(h.sign)
 	r.Methods(http.MethodPut).Path("/{address}/restore").HandlerFunc(h.restore)
 	r.Methods(http.MethodPatch).Path("/{address}").HandlerFunc(h.update)
 	r.Methods(http.MethodGet).Path("/{address}").HandlerFunc(h.getOne)
@@ -40,8 +41,8 @@ func (h *WalletsHandler) Register(r *mux.Router) {
 	r.Methods(http.MethodDelete).Path("/{address}/destroy").HandlerFunc(h.destroy)
 }
 
-// @Summary      Create an Ethereum Account
-// @Description  Create a new ECDSA Secp256k1 key representing an Ethereum Account
+// @Summary      Create a wallet
+// @Description  Create a new ECDSA Secp256k1 key representing a wallet
 // @Tags         Ethereum
 // @Accept       json
 // @Produce      json
@@ -90,7 +91,7 @@ func (h *WalletsHandler) create(rw http.ResponseWriter, request *http.Request) {
 	}
 }
 
-// @Summary      Import an Ethereum Account
+// @Summary      Import a wallet
 // @Description  Import an ECDSA Secp256k1 key representing an Ethereum account
 // @Accept       json
 // @Produce      json
@@ -114,7 +115,8 @@ func (h *WalletsHandler) importAccount(rw http.ResponseWriter, request *http.Req
 		return
 	}
 
-	walletStore, err := h.stores.Wallet(ctx, StoreNameFromContext(ctx), auth.UserInfoFromContext(ctx))
+	fmt.Println("createReq:", StoreNameFromContext(request.Context()))
+	walletStore, err := h.stores.Wallet(ctx, StoreNameFromContext(request.Context()), auth.UserInfoFromContext(ctx))
 	if err != nil {
 		infrahttp.WriteHTTPErrorResponse(rw, err)
 		return
@@ -140,8 +142,8 @@ func (h *WalletsHandler) importAccount(rw http.ResponseWriter, request *http.Req
 	}
 }
 
-// @Summary      Update an Ethereum Account
-// @Description  Update an Ethereum Account metadata
+// @Summary      Update a wallet
+// @Description  Update a wallet metadata
 // @Accept       json
 // @Produce      json
 // @Tags         Ethereum
@@ -228,8 +230,8 @@ func (h *WalletsHandler) sign(rw http.ResponseWriter, request *http.Request) {
 	}
 }
 
-// @Summary      Get an Ethereum Account
-// @Description  Fetch an Ethereum Account data by its address
+// @Summary      Get a wallet
+// @Description  Fetch a wallet data by its address
 // @Tags         Ethereum
 // @Accept       json
 // @Produce      json
@@ -320,7 +322,7 @@ func (h *WalletsHandler) list(rw http.ResponseWriter, request *http.Request) {
 }
 
 // @Summary      Delete Ethereum Account
-// @Description  Soft delete an Ethereum Account, can be recovered
+// @Description  Soft delete a wallet, can be recovered
 // @Tags         Ethereum
 // @Accept       json
 // @Param        storeName  path  string  true  "Store ID"
@@ -350,7 +352,7 @@ func (h *WalletsHandler) delete(rw http.ResponseWriter, request *http.Request) {
 }
 
 // @Summary      Destroy Ethereum Account
-// @Description  Hard delete an Ethereum Account, cannot be recovered
+// @Description  Hard delete a wallet, cannot be recovered
 // @Tags         Ethereum
 // @Accept       json
 // @Param        storeName  path  string  true  "Store ID"

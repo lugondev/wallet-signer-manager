@@ -37,7 +37,6 @@ func NewConnector(roles auth.Roles, db database.Database, vaultsService vaults.V
 	}
 }
 
-// TODO: Move to data layer
 func (c *Connector) createStore(name, storeType string, store interface{}, allowedTenants []string) {
 	c.mux.Lock()
 	defer c.mux.Unlock()
@@ -50,7 +49,6 @@ func (c *Connector) createStore(name, storeType string, store interface{}, allow
 	}
 }
 
-// TODO: Move to data layer
 func (c *Connector) getStore(_ context.Context, name string, resolver auth.Authorizator) (*entities.Store, error) {
 	c.mux.RLock()
 	defer c.mux.RUnlock()

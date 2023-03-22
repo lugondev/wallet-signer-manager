@@ -24,7 +24,6 @@ type Wallet struct {
 
 func NewWallet(account *entities.Wallet) *Wallet {
 	return &Wallet{
-		KeyID:               account.KeyID,
 		PublicKey:           account.PublicKey,
 		CompressedPublicKey: account.CompressedPublicKey,
 		Tags:                account.Tags,
@@ -51,7 +50,6 @@ func NewWalletFromKey(key *entities.Wallet, attr *entities.Attributes) *entities
 
 func (eth *Wallet) ToEntity() *entities.Wallet {
 	return &entities.Wallet{
-		KeyID:               eth.KeyID,
 		PublicKey:           eth.PublicKey,
 		CompressedPublicKey: eth.CompressedPublicKey,
 		Metadata: &entities.Metadata{

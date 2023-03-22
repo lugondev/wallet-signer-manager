@@ -1,0 +1,13 @@
+- kind: Vault
+  type: hashicorp
+  name: wallet-signer
+  specs:
+    mount_point: quorum
+    address: http://0.0.0.0:8200
+    token: 's.u08NeqlLhsJgm9vpq0WYmSDK'
+    namespace: 'lugon-test'
+- kind: Store
+  type: wallet
+  name: wallet-signer
+  specs:
+    key_store: wallet-store

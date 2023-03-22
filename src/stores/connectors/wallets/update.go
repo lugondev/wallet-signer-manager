@@ -2,6 +2,7 @@ package wallets
 
 import (
 	"context"
+	"github.com/ethereum/go-ethereum/common/hexutil"
 
 	authtypes "github.com/lugondev/signer-key-manager/src/auth/entities"
 
@@ -31,7 +32,7 @@ func (c Connector) Update(ctx context.Context, pubkey string, attr *entities.Att
 			return err
 		}
 
-		_, err = c.store.Update(ctx, acc.KeyID, attr)
+		_, err = c.store.Update(ctx, hexutil.Encode(acc.CompressedPublicKey), attr)
 		if err != nil && !errors.IsNotSupportedError(err) {
 			return err
 		}

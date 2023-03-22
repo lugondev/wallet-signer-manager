@@ -19,7 +19,7 @@ func RegisterService(router *mux.Router, logger log.Logger, postgresClient postg
 	storesService := stores.NewConnector(roles, storesDB, vaultsService, logger)
 
 	// Service layer
-	http.NewWalletsHandler(storesService).Register(router)
+	http.NewStoresHandler(storesService).Register(router)
 
 	return storesService
 }

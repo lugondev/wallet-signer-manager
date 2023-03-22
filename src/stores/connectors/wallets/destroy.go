@@ -2,6 +2,7 @@ package wallets
 
 import (
 	"context"
+	"github.com/ethereum/go-ethereum/common/hexutil"
 
 	"github.com/lugondev/signer-key-manager/src/auth/entities"
 
@@ -29,7 +30,7 @@ func (c Connector) Destroy(ctx context.Context, pubkey string) error {
 			return err
 		}
 
-		err = c.store.Destroy(ctx, acc.KeyID)
+		err = c.store.Destroy(ctx, hexutil.Encode(acc.CompressedPublicKey))
 		if err != nil && !errors.IsNotSupportedError(err) { // If the underlying store does not support deleting, we only delete in DB
 			return err
 		}

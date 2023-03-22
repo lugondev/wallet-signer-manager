@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/lugondev/signer-key-manager/cmd/flags"
@@ -12,7 +13,7 @@ import (
 )
 
 func newRunCommand() *cobra.Command {
-	runCmd := &cobra.Command{
+	command := &cobra.Command{
 		Use:   "run",
 		Short: "Run application",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -27,25 +28,33 @@ func newRunCommand() *cobra.Command {
 		},
 	}
 
-	flags.HTTPFlags(runCmd.Flags())
-	flags.ManifestFlags(runCmd.Flags())
-	flags.LoggerFlags(runCmd.Flags())
-	flags.PGFlags(runCmd.Flags())
-	flags.OIDCFlags(runCmd.Flags())
-	flags.APIKeyFlags(runCmd.Flags())
-	flags.TLSFlags(runCmd.Flags())
+	flags.HTTPFlags(command.Flags())
+	flags.ManifestFlags(command.Flags())
+	flags.LoggerFlags(command.Flags())
+	flags.PGFlags(command.Flags())
+	flags.OIDCFlags(command.Flags())
+	flags.APIKeyFlags(command.Flags())
+	flags.TLSFlags(command.Flags())
 
-	return runCmd
+	return command
 }
 
 func runCmd(cmd *cobra.Command, _ []string) error {
 	ctx := cmd.Context()
 
 	vipr := viper.GetViper()
+	//vipr.AddConfigPath("./")
+	vipr.SetConfigFile(".env")
+	err := vipr.ReadInConfig()
+	if err != nil {
+		return err
+	}
+
 	cfg, err := flags.NewAppConfig(vipr)
 	if err != nil {
 		return err
 	}
+	fmt.Println("app config: ", cfg.ToJson())
 
 	logger, err := zap.NewLogger(cfg.Logger)
 	if err != nil {
