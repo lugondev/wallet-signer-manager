@@ -3,7 +3,7 @@ package request
 import (
 	"net/http"
 
-	"github.com/consensys/quorum-key-manager/pkg/http/header"
+	"github.com/lugondev/signer-key-manager/pkg/http/header"
 )
 
 func HeadersPreparer(h func(http.Header) error) Preparer {

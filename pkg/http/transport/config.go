@@ -3,8 +3,8 @@ package transport
 import (
 	"time"
 
-	"github.com/consensys/quorum-key-manager/pkg/json"
-	"github.com/consensys/quorum-key-manager/pkg/net/dialer"
+	"github.com/lugondev/signer-key-manager/pkg/json"
+	"github.com/lugondev/signer-key-manager/pkg/net/dialer"
 )
 
 // Config options to configure communication between Traefik and the servers

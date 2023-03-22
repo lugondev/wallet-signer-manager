@@ -7,7 +7,7 @@ import (
 	"io/ioutil"
 	"os"
 
-	"github.com/consensys/quorum-key-manager/src/infra/tls"
+	"github.com/lugondev/signer-key-manager/src/infra/tls"
 )
 
 type Reader struct {

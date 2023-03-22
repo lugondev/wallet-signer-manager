@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/consensys/quorum-key-manager/pkg/errors"
 	"github.com/hashicorp/vault/api"
+	"github.com/lugondev/signer-key-manager/pkg/errors"
 )
 
 func parseErrorResponse(err error) error {

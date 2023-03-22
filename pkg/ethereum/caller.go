@@ -1,7 +1,7 @@
-package ethereum
+package walletsereum
 
 import (
-	"github.com/consensys/quorum-key-manager/pkg/jsonrpc"
+	"github.com/lugondev/signer-key-manager/pkg/jsonrpc"
 )
 
 //go:generate mockgen -source=caller.go -destination=mock/caller.go -package=mock

@@ -1,4 +1,4 @@
-package ethereum
+package walletsereum
 
 import (
 	"bytes"
@@ -8,10 +8,10 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/consensys/quorum-key-manager/pkg/http/testutils"
-	"github.com/consensys/quorum-key-manager/pkg/jsonrpc"
 	ethcommon "github.com/ethereum/go-ethereum/common"
 	"github.com/golang/mock/gomock"
+	"github.com/lugondev/signer-key-manager/pkg/http/testutils"
+	"github.com/lugondev/signer-key-manager/pkg/jsonrpc"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

@@ -1,7 +1,0 @@
-BEGIN;
-
-DROP TABLE IF EXISTS secrets;
-DROP TABLE IF EXISTS keys;
-DROP TABLE IF EXISTS eth_accounts;
-
-COMMIT;

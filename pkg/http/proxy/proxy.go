@@ -4,9 +4,9 @@ import (
 	"net/http"
 	"net/http/httputil"
 
-	"github.com/consensys/quorum-key-manager/pkg/http/request"
-	"github.com/consensys/quorum-key-manager/pkg/http/response"
-	"github.com/consensys/quorum-key-manager/pkg/http/transport"
+	"github.com/lugondev/signer-key-manager/pkg/http/request"
+	"github.com/lugondev/signer-key-manager/pkg/http/response"
+	"github.com/lugondev/signer-key-manager/pkg/http/transport"
 	"github.com/oxtoacart/bpool"
 )
 

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/consensys/quorum-key-manager/pkg/http/proxy"
+	"github.com/lugondev/signer-key-manager/pkg/http/proxy"
 )
 
 func Error(err error) *ErrorMsg {

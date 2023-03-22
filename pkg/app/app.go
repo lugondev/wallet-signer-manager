@@ -8,12 +8,12 @@ import (
 	"reflect"
 	"sync"
 
-	"github.com/consensys/quorum-key-manager/src/infra/log"
+	"github.com/lugondev/signer-key-manager/src/infra/log"
 
-	"github.com/consensys/quorum-key-manager/pkg/common"
-	"github.com/consensys/quorum-key-manager/pkg/errors"
-	"github.com/consensys/quorum-key-manager/pkg/http/server"
 	gorillamux "github.com/gorilla/mux"
+	"github.com/lugondev/signer-key-manager/pkg/common"
+	"github.com/lugondev/signer-key-manager/pkg/errors"
+	"github.com/lugondev/signer-key-manager/pkg/http/server"
 )
 
 const (

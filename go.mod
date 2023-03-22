@@ -1,24 +1,15 @@
-module github.com/consensys/quorum-key-manager
+module github.com/lugondev/signer-key-manager
 
 go 1.16
 
 require (
-	github.com/Azure/azure-sdk-for-go v52.5.0+incompatible
-	github.com/Azure/go-autorest/autorest v0.11.24
-	github.com/Azure/go-autorest/autorest/azure/auth v0.5.7
-	github.com/Azure/go-autorest/autorest/date v0.3.0
-	github.com/Azure/go-autorest/autorest/to v0.4.0 // indirect
-	github.com/Azure/go-autorest/autorest/validation v0.3.1 // indirect
 	github.com/auth0/go-jwt-middleware/v2 v2.0.0-beta.1
-	github.com/aws/aws-sdk-go v1.43.9
-	github.com/cenkalti/backoff/v4 v4.1.1
 	github.com/consensys/gnark-crypto v0.5.0
 	github.com/consensys/quorum v2.7.0+incompatible
-	github.com/docker/docker v20.10.12+incompatible
-	github.com/docker/go-connections v0.4.0
+	github.com/docker/docker v20.10.12+incompatible // indirect
 	github.com/ethereum/go-ethereum v1.10.13
 	github.com/fsnotify/fsnotify v1.4.9
-	github.com/go-kit/kit v0.12.0
+	github.com/go-kit/kit v0.12.0 // indirect
 	github.com/go-pg/pg/v10 v10.10.1
 	github.com/go-playground/validator/v10 v10.5.0
 	github.com/golang-migrate/migrate/v4 v4.15.1
@@ -45,9 +36,8 @@ require (
 	github.com/stretchr/testify v1.7.0
 	go.elastic.co/ecszap v1.0.0
 	go.uber.org/zap v1.19.1
-	golang.org/x/crypto v0.0.0-20211215153901-e495a2d5b3d3
+	golang.org/x/crypto v0.0.0-20211215153901-e495a2d5b3d3 // indirect
 	golang.org/x/net v0.0.0-20220127200216-cd36cc0744dd
 	golang.org/x/time v0.0.0-20210723032227-1f47c861a9ac
 	gopkg.in/yaml.v2 v2.4.0
-	k8s.io/apimachinery v0.21.0
 )

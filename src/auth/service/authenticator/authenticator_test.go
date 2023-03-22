@@ -8,17 +8,17 @@ import (
 	"fmt"
 	"testing"
 
-	mock2 "github.com/consensys/quorum-key-manager/src/infra/log/mock"
+	mock2 "github.com/lugondev/signer-key-manager/src/infra/log/mock"
 
-	"github.com/consensys/quorum-key-manager/pkg/errors"
-	"github.com/consensys/quorum-key-manager/src/auth/entities/testdata"
-	"github.com/consensys/quorum-key-manager/src/infra/jwt/mock"
-	testutils2 "github.com/consensys/quorum-key-manager/src/infra/log/testutils"
+	"github.com/lugondev/signer-key-manager/pkg/errors"
+	"github.com/lugondev/signer-key-manager/src/auth/entities/testdata"
+	"github.com/lugondev/signer-key-manager/src/infra/jwt/mock"
+	testutils2 "github.com/lugondev/signer-key-manager/src/infra/log/testutils"
 	"github.com/stretchr/testify/suite"
 
-	"github.com/consensys/quorum-key-manager/pkg/tls/certificate"
-	"github.com/consensys/quorum-key-manager/src/auth/entities"
 	"github.com/golang/mock/gomock"
+	"github.com/lugondev/signer-key-manager/pkg/tls/certificate"
+	"github.com/lugondev/signer-key-manager/src/auth/entities"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

@@ -6,7 +6,7 @@ package mock
 
 import (
 	context "context"
-	ethereum "github.com/consensys/quorum-key-manager/pkg/ethereum"
+	ethereum "github.com/lugondev/signer-key-manager/pkg/ethereum"
 	common "github.com/ethereum/go-ethereum/common"
 	gomock "github.com/golang/mock/gomock"
 	big "math/big"

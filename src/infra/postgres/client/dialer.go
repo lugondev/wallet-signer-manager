@@ -9,9 +9,9 @@ import (
 	"net"
 	"time"
 
-	"github.com/consensys/quorum-key-manager/pkg/errors"
-	"github.com/consensys/quorum-key-manager/pkg/tcp"
-	"github.com/consensys/quorum-key-manager/pkg/tls"
+	"github.com/lugondev/signer-key-manager/pkg/errors"
+	"github.com/lugondev/signer-key-manager/pkg/tcp"
+	"github.com/lugondev/signer-key-manager/pkg/tls"
 )
 
 type TLSDialer struct {

@@ -3,11 +3,10 @@ package stores
 import (
 	"context"
 
-	"github.com/consensys/quorum-key-manager/src/auth/service/authorizator"
-	"github.com/consensys/quorum-key-manager/src/stores/entities"
+	"github.com/lugondev/signer-key-manager/src/auth/service/authorizator"
+	"github.com/lugondev/signer-key-manager/src/stores/entities"
 
-	authtypes "github.com/consensys/quorum-key-manager/src/auth/entities"
-	"github.com/ethereum/go-ethereum/common"
+	authtypes "github.com/lugondev/signer-key-manager/src/auth/entities"
 )
 
 func (c *Connector) List(ctx context.Context, storeType string, userInfo *authtypes.UserInfo) ([]string, error) {
@@ -33,18 +32,18 @@ func (c *Connector) List(ctx context.Context, storeType string, userInfo *authty
 	return storeNames, nil
 }
 
-func (c *Connector) ListAllAccounts(ctx context.Context, userInfo *authtypes.UserInfo) ([]common.Address, error) {
+func (c *Connector) ListAllWallets(ctx context.Context, userInfo *authtypes.UserInfo) ([]string, error) {
 	c.mux.RLock()
 	defer c.mux.RUnlock()
 
-	var accs []common.Address
-	stores, err := c.List(ctx, entities.EthereumStoreType, userInfo)
+	var accs []string
+	stores, err := c.List(ctx, entities.WalletStoreType, userInfo)
 	if err != nil {
 		return nil, err
 	}
 
 	for _, storeName := range stores {
-		store, err := c.Ethereum(ctx, storeName, userInfo)
+		store, err := c.Wallet(ctx, storeName, userInfo)
 		if err != nil {
 			return nil, err
 		}

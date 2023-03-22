@@ -1,4 +1,4 @@
-package ethereum
+package walletsereum
 
 import (
 	"encoding/json"

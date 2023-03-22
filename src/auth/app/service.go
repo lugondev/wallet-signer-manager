@@ -3,14 +3,14 @@ package app
 import (
 	"crypto/x509"
 
-	"github.com/consensys/quorum-key-manager/pkg/app"
-	"github.com/consensys/quorum-key-manager/src/auth/api/http"
-	"github.com/consensys/quorum-key-manager/src/auth/entities"
-	"github.com/consensys/quorum-key-manager/src/auth/service/authenticator"
-	"github.com/consensys/quorum-key-manager/src/auth/service/roles"
-	"github.com/consensys/quorum-key-manager/src/infra/jwt"
-	"github.com/consensys/quorum-key-manager/src/infra/log"
 	"github.com/justinas/alice"
+	"github.com/lugondev/signer-key-manager/pkg/app"
+	"github.com/lugondev/signer-key-manager/src/auth/api/http"
+	"github.com/lugondev/signer-key-manager/src/auth/entities"
+	"github.com/lugondev/signer-key-manager/src/auth/service/authenticator"
+	"github.com/lugondev/signer-key-manager/src/auth/service/roles"
+	"github.com/lugondev/signer-key-manager/src/infra/jwt"
+	"github.com/lugondev/signer-key-manager/src/infra/log"
 )
 
 func RegisterService(

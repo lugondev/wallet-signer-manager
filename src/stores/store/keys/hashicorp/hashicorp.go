@@ -5,13 +5,11 @@ import (
 	"encoding/base64"
 	"path"
 
-	entities2 "github.com/consensys/quorum-key-manager/src/entities"
-
-	"github.com/consensys/quorum-key-manager/pkg/errors"
-	"github.com/consensys/quorum-key-manager/src/infra/hashicorp"
-	"github.com/consensys/quorum-key-manager/src/infra/log"
-	"github.com/consensys/quorum-key-manager/src/stores"
-	"github.com/consensys/quorum-key-manager/src/stores/entities"
+	"github.com/lugondev/signer-key-manager/pkg/errors"
+	"github.com/lugondev/signer-key-manager/src/infra/hashicorp"
+	"github.com/lugondev/signer-key-manager/src/infra/log"
+	"github.com/lugondev/signer-key-manager/src/stores"
+	"github.com/lugondev/signer-key-manager/src/stores/entities"
 )
 
 const (
@@ -31,7 +29,7 @@ type Store struct {
 	logger log.Logger
 }
 
-var _ stores.KeyStore = &Store{}
+var _ stores.WalletStore = &Store{}
 
 func New(client hashicorp.PluginClient, logger log.Logger) *Store {
 	return &Store{
@@ -40,18 +38,10 @@ func New(client hashicorp.PluginClient, logger log.Logger) *Store {
 	}
 }
 
-func (s *Store) Create(_ context.Context, id string, alg *entities2.Algorithm, attr *entities.Attributes) (*entities.Key, error) {
-	if !s.isSupportedAlgo(alg) {
-		errMessage := "invalid or not supported elliptic curve and signing algorithm for Hashicorp key creation"
-		s.logger.With("elliptic_curve", alg.EllipticCurve, "signing_algorithm", alg.Type).Error(errMessage)
-		return nil, errors.NotSupportedError(errMessage)
-	}
-
+func (s *Store) Create(_ context.Context, id string, attr *entities.Attributes) (*entities.Wallet, error) {
 	res, err := s.client.CreateKey(map[string]interface{}{
-		idLabel:        id,
-		curveLabel:     alg.EllipticCurve,
-		algorithmLabel: alg.Type,
-		tagsLabel:      attr.Tags,
+		idLabel:   id,
+		tagsLabel: attr.Tags,
 	})
 	if err != nil {
 		errMessage := "failed to create Hashicorp key"
@@ -61,17 +51,10 @@ func (s *Store) Create(_ context.Context, id string, alg *entities2.Algorithm, a
 	return parseAPISecretToKey(res)
 }
 
-func (s *Store) Import(_ context.Context, id string, privKey []byte, alg *entities2.Algorithm, attr *entities.Attributes) (*entities.Key, error) {
-	if !s.isSupportedAlgo(alg) {
-		errMessage := "invalid or not supported elliptic curve and signing algorithm for Hashicorp key import"
-		s.logger.With("elliptic_curve", alg.EllipticCurve, "signing_algorithm", alg.Type).Error(errMessage)
-		return nil, errors.NotSupportedError(errMessage)
-	}
+func (s *Store) Import(_ context.Context, id string, privKey []byte, attr *entities.Attributes) (*entities.Wallet, error) {
 
 	res, err := s.client.ImportKey(map[string]interface{}{
 		idLabel:         id,
-		curveLabel:      alg.EllipticCurve,
-		algorithmLabel:  alg.Type,
 		tagsLabel:       attr.Tags,
 		privateKeyLabel: base64.URLEncoding.EncodeToString(privKey),
 	})
@@ -84,7 +67,7 @@ func (s *Store) Import(_ context.Context, id string, privKey []byte, alg *entiti
 	return parseAPISecretToKey(res)
 }
 
-func (s *Store) Get(_ context.Context, id string) (*entities.Key, error) {
+func (s *Store) Get(_ context.Context, id string) (*entities.Wallet, error) {
 	logger := s.logger.With("id", id)
 
 	res, err := s.client.GetKey(id)
@@ -128,7 +111,7 @@ func (s *Store) List(_ context.Context, _, _ uint64) ([]string, error) {
 	return ids, nil
 }
 
-func (s *Store) Update(_ context.Context, id string, attr *entities.Attributes) (*entities.Key, error) {
+func (s *Store) Update(_ context.Context, id string, attr *entities.Attributes) (*entities.Wallet, error) {
 	res, err := s.client.UpdateKey(id, map[string]interface{}{
 		tagsLabel: attr.Tags,
 	})
@@ -147,7 +130,7 @@ func (s *Store) Delete(_ context.Context, _ string) error {
 	return err
 }
 
-func (s *Store) GetDeleted(_ context.Context, _ string) (*entities.Key, error) {
+func (s *Store) GetDeleted(_ context.Context, _ string) (*entities.Wallet, error) {
 	err := errors.NotSupportedError("get deleted key is not supported")
 	s.logger.Warn(err.Error())
 	return nil, err
@@ -176,13 +159,7 @@ func (s *Store) Destroy(_ context.Context, id string) error {
 	return nil
 }
 
-func (s *Store) Sign(_ context.Context, id string, data []byte, alg *entities2.Algorithm) ([]byte, error) {
-	if !s.isSupportedAlgo(alg) {
-		errMessage := "invalid or not supported elliptic curve and signing algorithm for Hashicorp signing"
-		s.logger.With("elliptic_curve", alg.EllipticCurve, "signing_algorithm", alg.Type).Error(errMessage)
-		return nil, errors.NotSupportedError(errMessage)
-	}
-
+func (s *Store) Sign(_ context.Context, id string, data []byte) ([]byte, error) {
 	logger := s.logger.With("id", id)
 
 	res, err := s.client.Sign(id, data)
@@ -208,16 +185,4 @@ func (s *Store) Encrypt(_ context.Context, id string, data []byte) ([]byte, erro
 
 func (s *Store) Decrypt(_ context.Context, id string, data []byte) ([]byte, error) {
 	return nil, errors.ErrNotImplemented
-}
-
-func (s *Store) isSupportedAlgo(alg *entities2.Algorithm) bool {
-	if alg.Type == entities2.Ecdsa && alg.EllipticCurve == entities2.Secp256k1 {
-		return true
-	}
-
-	if alg.Type == entities2.Eddsa && alg.EllipticCurve == entities2.Babyjubjub {
-		return true
-	}
-
-	return false
 }

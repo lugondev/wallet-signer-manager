@@ -4,28 +4,22 @@ import (
 	"encoding/base64"
 	"time"
 
-	entities2 "github.com/consensys/quorum-key-manager/src/entities"
+	"github.com/lugondev/signer-key-manager/src/stores/entities"
 
-	"github.com/consensys/quorum-key-manager/src/stores/entities"
-
-	"github.com/consensys/quorum-key-manager/pkg/errors"
+	"github.com/lugondev/signer-key-manager/pkg/errors"
 
 	"github.com/hashicorp/vault/api"
 )
 
-func parseAPISecretToKey(hashicorpSecret *api.Secret) (*entities.Key, error) {
+func parseAPISecretToKey(hashicorpSecret *api.Secret) (*entities.Wallet, error) {
 	pubKey, err := base64.URLEncoding.DecodeString(hashicorpSecret.Data[publicKeyLabel].(string))
 	if err != nil {
 		return nil, errors.HashicorpVaultError("failed to decode public key")
 	}
 
-	key := &entities.Key{
-		ID:        hashicorpSecret.Data[idLabel].(string),
-		PublicKey: pubKey,
-		Algo: &entities2.Algorithm{
-			Type:          entities2.KeyType(hashicorpSecret.Data[algorithmLabel].(string)),
-			EllipticCurve: entities2.Curve(hashicorpSecret.Data[curveLabel].(string)),
-		},
+	key := &entities.Wallet{
+		PublicKey:           pubKey,
+		CompressedPublicKey: pubKey,
 		Metadata: &entities.Metadata{
 			Disabled: false,
 		},

@@ -1,9 +1,7 @@
 package entities
 
 const (
-	EthereumStoreType = "ethereum"
-	KeyStoreType      = "key"
-	SecretStoreType   = "secret"
+	WalletStoreType = "wallet"
 )
 
 type Store struct {

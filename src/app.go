@@ -4,20 +4,17 @@ import (
 	"context"
 	"crypto/x509"
 
-	"github.com/consensys/quorum-key-manager/pkg/app"
-	aliasapp "github.com/consensys/quorum-key-manager/src/aliases/app"
-	authapp "github.com/consensys/quorum-key-manager/src/auth/app"
-	authtypes "github.com/consensys/quorum-key-manager/src/auth/entities"
-	"github.com/consensys/quorum-key-manager/src/infra/api-key/csv"
-	"github.com/consensys/quorum-key-manager/src/infra/jwt"
-	"github.com/consensys/quorum-key-manager/src/infra/jwt/jose"
-	"github.com/consensys/quorum-key-manager/src/infra/log"
-	"github.com/consensys/quorum-key-manager/src/infra/postgres/client"
-	tls "github.com/consensys/quorum-key-manager/src/infra/tls/filesystem"
-	nodesapp "github.com/consensys/quorum-key-manager/src/nodes/app"
-	storesapp "github.com/consensys/quorum-key-manager/src/stores/app"
-	utilsapp "github.com/consensys/quorum-key-manager/src/utils/app"
-	vaultsapp "github.com/consensys/quorum-key-manager/src/vaults/app"
+	"github.com/lugondev/signer-key-manager/pkg/app"
+	authapp "github.com/lugondev/signer-key-manager/src/auth/app"
+	authtypes "github.com/lugondev/signer-key-manager/src/auth/entities"
+	"github.com/lugondev/signer-key-manager/src/infra/api-key/csv"
+	"github.com/lugondev/signer-key-manager/src/infra/jwt"
+	"github.com/lugondev/signer-key-manager/src/infra/jwt/jose"
+	"github.com/lugondev/signer-key-manager/src/infra/log"
+	"github.com/lugondev/signer-key-manager/src/infra/postgres/client"
+	tls "github.com/lugondev/signer-key-manager/src/infra/tls/filesystem"
+	storesapp "github.com/lugondev/signer-key-manager/src/stores/app"
+	vaultsapp "github.com/lugondev/signer-key-manager/src/vaults/app"
 )
 
 func New(ctx context.Context, cfg *Config, logger log.Logger) (*app.App, error) {
@@ -60,13 +57,10 @@ func New(ctx context.Context, cfg *Config, logger log.Logger) (*app.App, error) 
 		return nil, err
 	}
 
-	aliasService := aliasapp.RegisterService(router, logger.WithComponent("aliases"), pgClient, authService)
 	vaultsService := vaultsapp.RegisterService(logger.WithComponent("vaults"), authService)
 	storesService := storesapp.RegisterService(router, logger.WithComponent("stores"), pgClient, authService, vaultsService)
-	nodesService := nodesapp.RegisterService(router, logger.WithComponent("nodes"), authService, storesService, aliasService)
-	_ = utilsapp.RegisterService(router, logger.WithComponent("utilities"))
 
-	err = initialize(ctx, cfg.Manifest, authService, vaultsService, storesService, nodesService)
+	err = initialize(ctx, cfg.Manifest, authService, vaultsService, storesService)
 	if err != nil {
 		return nil, err
 	}

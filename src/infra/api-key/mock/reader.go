@@ -6,7 +6,7 @@ package mock
 
 import (
 	context "context"
-	entities "github.com/consensys/quorum-key-manager/src/auth/entities"
+	entities "github.com/lugondev/signer-key-manager/src/auth/entities"
 	gomock "github.com/golang/mock/gomock"
 	reflect "reflect"
 )

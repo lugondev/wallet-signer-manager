@@ -7,8 +7,8 @@ import (
 
 	"gopkg.in/yaml.v2"
 
-	"github.com/consensys/quorum-key-manager/pkg/errors"
 	"github.com/go-playground/validator/v10"
+	"github.com/lugondev/signer-key-manager/pkg/errors"
 )
 
 func UnmarshalBody(body io.Reader, req interface{}) error {

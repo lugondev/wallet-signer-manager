@@ -3,7 +3,7 @@ package http
 import (
 	"context"
 
-	"github.com/consensys/quorum-key-manager/src/auth/entities"
+	"github.com/lugondev/signer-key-manager/src/auth/entities"
 )
 
 type contextKey struct{}

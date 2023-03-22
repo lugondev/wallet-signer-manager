@@ -5,10 +5,10 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/consensys/quorum-key-manager/pkg/errors"
-	"github.com/consensys/quorum-key-manager/src/auth"
-	"github.com/consensys/quorum-key-manager/src/auth/entities"
-	httpinfra "github.com/consensys/quorum-key-manager/src/infra/http"
+	"github.com/lugondev/signer-key-manager/pkg/errors"
+	"github.com/lugondev/signer-key-manager/src/auth"
+	"github.com/lugondev/signer-key-manager/src/auth/entities"
+	httpinfra "github.com/lugondev/signer-key-manager/src/infra/http"
 )
 
 const BasicSchema = "basic"

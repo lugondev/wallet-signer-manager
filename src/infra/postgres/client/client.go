@@ -3,12 +3,12 @@ package client
 import (
 	"context"
 
-	"github.com/consensys/quorum-key-manager/pkg/errors"
 	"github.com/go-pg/pg/v10"
 	"github.com/go-pg/pg/v10/orm"
 	"github.com/lib/pq"
+	"github.com/lugondev/signer-key-manager/pkg/errors"
 
-	"github.com/consensys/quorum-key-manager/src/infra/postgres"
+	"github.com/lugondev/signer-key-manager/src/infra/postgres"
 )
 
 type PostgresClient struct {
@@ -243,10 +243,10 @@ func (c *PostgresClient) ForceDeleteWhere(ctx context.Context, model interface{}
 	return nil
 }
 
-func (c PostgresClient) RunInTransaction(ctx context.Context, persist func(client postgres.Client) error) (err error) {
+func (c *PostgresClient) RunInTransaction(ctx context.Context, persist func(client postgres.Client) error) (err error) {
 	persistFunc := func(tx *pg.Tx) error {
 		c.db = tx
-		return persist(&c)
+		return persist(c)
 	}
 
 	// CheckPermission whether we already are in a tx or not to allow for nested DB transactions
@@ -258,7 +258,7 @@ func (c PostgresClient) RunInTransaction(ctx context.Context, persist func(clien
 	return c.db.(*pg.DB).RunInTransaction(ctx, persistFunc)
 }
 
-func (c PostgresClient) Ping(ctx context.Context) error {
+func (c *PostgresClient) Ping(ctx context.Context) error {
 	_, err := c.db.ExecContext(ctx, "SELECT 1")
 	return err
 }

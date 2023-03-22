@@ -3,7 +3,7 @@ package cmd
 import (
 	"strings"
 
-	"github.com/consensys/quorum-key-manager/src/infra/log/zap"
+	"github.com/lugondev/signer-key-manager/src/infra/log/zap"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
@@ -19,7 +19,6 @@ func NewCommand() *cobra.Command {
 
 	rootCmd.AddCommand(newRunCommand())
 	rootCmd.AddCommand(newMigrateCommand())
-	rootCmd.AddCommand(newSyncCommand())
 
 	return rootCmd
 }

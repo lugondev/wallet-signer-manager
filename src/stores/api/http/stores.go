@@ -4,46 +4,34 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/consensys/quorum-key-manager/pkg/errors"
-	http2 "github.com/consensys/quorum-key-manager/src/infra/http"
-	"github.com/consensys/quorum-key-manager/src/stores"
 	"github.com/gorilla/mux"
+	"github.com/lugondev/signer-key-manager/pkg/errors"
+	http2 "github.com/lugondev/signer-key-manager/src/infra/http"
+	"github.com/lugondev/signer-key-manager/src/stores"
 )
 
 type StoresHandler struct {
-	secrets *SecretsHandler
-	keys    *KeysHandler
-	eth     *EthHandler
+	wallets *WalletsHandler
 }
 
 // NewStoresHandler creates a http.Handler to be served on /stores
 func NewStoresHandler(s stores.Stores) *StoresHandler {
 	return &StoresHandler{
-		secrets: NewSecretsHandler(s),
-		keys:    NewKeysHandler(s),
-		eth:     NewEthHandler(s),
+		wallets: NewWalletsHandler(s),
 	}
 }
 
 func (h *StoresHandler) Register(router *mux.Router) {
-	// Create subrouter for /stores
-	storesSubrouter := router.PathPrefix("/stores").Subrouter()
+	// Create sub router for /stores
+	storesSubRouter := router.PathPrefix("/stores").Subrouter()
 
-	// Create subrouter for /stores/{storeName}
-	storeSubrouter := storesSubrouter.PathPrefix("/{storeName}").Subrouter()
-	storeSubrouter.Use(storeSelector)
+	// Create sub router for /stores/{storeName}
+	storeSubRouter := storesSubRouter.PathPrefix("/{storeName}").Subrouter()
+	storeSubRouter.Use(storeSelector)
 
-	// Register secrets handler on /stores/{storeName}/secrets
-	secretsSubrouter := storeSubrouter.PathPrefix("/secrets").Subrouter()
-	h.secrets.Register(secretsSubrouter)
-
-	// Register keys handler on /stores/{storeName}/keys
-	keysSubrouter := storeSubrouter.PathPrefix("/keys").Subrouter()
-	h.keys.Register(keysSubrouter)
-
-	// Register ethereum handler on /stores/{storeName}/ethereum
-	ethSubrouter := storeSubrouter.PathPrefix("/ethereum").Subrouter()
-	h.eth.Register(ethSubrouter)
+	// Register secrets handler on /stores/{storeName}/wallets
+	walletsSubRouter := storeSubRouter.PathPrefix("/wallets").Subrouter()
+	h.wallets.Register(walletsSubRouter)
 }
 
 func storeSelector(h http.Handler) http.Handler {

@@ -3,16 +3,14 @@ package src
 import (
 	"context"
 
-	"github.com/consensys/quorum-key-manager/src/auth"
-	rolesapi "github.com/consensys/quorum-key-manager/src/auth/api/manifest"
-	"github.com/consensys/quorum-key-manager/src/entities"
-	manifestreader "github.com/consensys/quorum-key-manager/src/infra/manifests/yaml"
-	"github.com/consensys/quorum-key-manager/src/nodes"
-	nodesapi "github.com/consensys/quorum-key-manager/src/nodes/api/manifest"
-	"github.com/consensys/quorum-key-manager/src/stores"
-	storesapi "github.com/consensys/quorum-key-manager/src/stores/api/manifest"
-	"github.com/consensys/quorum-key-manager/src/vaults"
-	vaultsapi "github.com/consensys/quorum-key-manager/src/vaults/api/manifest"
+	"github.com/lugondev/signer-key-manager/src/auth"
+	rolesapi "github.com/lugondev/signer-key-manager/src/auth/api/manifest"
+	"github.com/lugondev/signer-key-manager/src/entities"
+	manifestreader "github.com/lugondev/signer-key-manager/src/infra/manifests/yaml"
+	"github.com/lugondev/signer-key-manager/src/stores"
+	storesapi "github.com/lugondev/signer-key-manager/src/stores/api/manifest"
+	"github.com/lugondev/signer-key-manager/src/vaults"
+	vaultsapi "github.com/lugondev/signer-key-manager/src/vaults/api/manifest"
 )
 
 func initialize(
@@ -21,7 +19,6 @@ func initialize(
 	rolesService auth.Roles,
 	vaultsService vaults.Vaults,
 	storesService stores.Stores,
-	nodesService nodes.Nodes,
 ) error {
 	manifestReader, err := manifestreader.New(cfg)
 	if err != nil {
@@ -46,11 +43,6 @@ func initialize(
 	}
 
 	err = storesapi.NewStoresHandler(storesService).Register(ctx, manifests[entities.StoreKind])
-	if err != nil {
-		return err
-	}
-
-	err = nodesapi.NewNodesHandler(nodesService).Register(ctx, manifests[entities.NodeKind])
 	if err != nil {
 		return err
 	}

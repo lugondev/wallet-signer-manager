@@ -3,11 +3,11 @@ package manifest
 import (
 	"context"
 
-	"github.com/consensys/quorum-key-manager/pkg/errors"
-	"github.com/consensys/quorum-key-manager/pkg/json"
-	auth "github.com/consensys/quorum-key-manager/src/auth/entities"
-	"github.com/consensys/quorum-key-manager/src/entities"
-	"github.com/consensys/quorum-key-manager/src/vaults"
+	"github.com/lugondev/signer-key-manager/pkg/errors"
+	"github.com/lugondev/signer-key-manager/pkg/json"
+	auth "github.com/lugondev/signer-key-manager/src/auth/entities"
+	"github.com/lugondev/signer-key-manager/src/entities"
+	"github.com/lugondev/signer-key-manager/src/vaults"
 )
 
 type VaultsHandler struct {
@@ -28,10 +28,6 @@ func (h *VaultsHandler) Register(ctx context.Context, mnfs []entities.Manifest) 
 		switch mnf.ResourceType {
 		case entities.HashicorpVaultType:
 			err = h.CreateHashicorp(ctx, mnf.Name, mnf.AllowedTenants, mnf.Specs)
-		case entities.AzureVaultType:
-			err = h.CreateAzure(ctx, mnf.Name, mnf.AllowedTenants, mnf.Specs)
-		case entities.AWSVaultType:
-			err = h.CreateAWS(ctx, mnf.Name, mnf.AllowedTenants, mnf.Specs)
 		default:
 			return errors.InvalidFormatError("invalid vault type")
 		}
@@ -52,36 +48,6 @@ func (h *VaultsHandler) CreateHashicorp(ctx context.Context, name string, allowe
 	}
 
 	err = h.vaults.CreateHashicorp(ctx, name, config, allowedTenants, h.userInfo)
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (h *VaultsHandler) CreateAzure(ctx context.Context, name string, allowedTenants []string, specs interface{}) error {
-	config := &entities.AzureConfig{}
-	err := json.UnmarshalYAML(specs, config)
-	if err != nil {
-		return errors.InvalidFormatError(err.Error())
-	}
-
-	err = h.vaults.CreateAzure(ctx, name, config, allowedTenants, h.userInfo)
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (h *VaultsHandler) CreateAWS(ctx context.Context, name string, allowedTenants []string, specs interface{}) error {
-	config := &entities.AWSConfig{}
-	err := json.UnmarshalYAML(specs, config)
-	if err != nil {
-		return errors.InvalidFormatError(err.Error())
-	}
-
-	err = h.vaults.CreateAWS(ctx, name, config, allowedTenants, h.userInfo)
 	if err != nil {
 		return err
 	}

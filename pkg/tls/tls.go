@@ -5,7 +5,7 @@ import (
 	"crypto/x509"
 	"fmt"
 
-	"github.com/consensys/quorum-key-manager/pkg/tls/certificate"
+	"github.com/lugondev/signer-key-manager/pkg/tls/certificate"
 )
 
 var (

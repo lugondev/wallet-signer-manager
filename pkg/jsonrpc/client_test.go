@@ -6,8 +6,8 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/consensys/quorum-key-manager/pkg/http/testutils"
 	"github.com/golang/mock/gomock"
+	"github.com/lugondev/signer-key-manager/pkg/http/testutils"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

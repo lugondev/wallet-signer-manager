@@ -1,4 +1,4 @@
-package ethereum
+package walletsereum
 
 import (
 	"context"
@@ -6,9 +6,9 @@ import (
 
 	"github.com/ethereum/go-ethereum/core/types"
 
-	"github.com/consensys/quorum-key-manager/pkg/jsonrpc"
 	ethcommon "github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/hexutil"
+	"github.com/lugondev/signer-key-manager/pkg/jsonrpc"
 )
 
 func init() {

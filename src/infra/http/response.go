@@ -7,7 +7,7 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/consensys/quorum-key-manager/pkg/errors"
+	"github.com/lugondev/signer-key-manager/pkg/errors"
 )
 
 const (

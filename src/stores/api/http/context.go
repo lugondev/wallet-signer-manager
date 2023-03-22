@@ -1,6 +1,12 @@
 package http
 
-import "context"
+import (
+	"context"
+	"fmt"
+	"github.com/gorilla/mux"
+	"github.com/lugondev/signer-key-manager/pkg/common"
+	"net/http"
+)
 
 type ctxKeyType string
 
@@ -17,4 +23,12 @@ func StoreNameFromContext(ctx context.Context) string {
 	}
 
 	return ""
+}
+
+func generateRandomKeyID() string {
+	return fmt.Sprintf("%s%s", "signer", common.RandString(15))
+}
+
+func getPubkey(request *http.Request) string {
+	return mux.Vars(request)["pubkey"]
 }

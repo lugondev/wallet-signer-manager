@@ -3,7 +3,7 @@ package certificate
 import (
 	"testing"
 
-	"github.com/consensys/quorum-key-manager/pkg/tls/testutils"
+	"github.com/lugondev/signer-key-manager/pkg/tls/testutils"
 	"github.com/stretchr/testify/assert"
 )
 
