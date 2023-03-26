@@ -2,6 +2,7 @@ package postgres
 
 import (
 	"context"
+	"fmt"
 	"github.com/ethereum/go-ethereum/common"
 	"time"
 
@@ -32,7 +33,7 @@ func NewWallets(storeID string, db postgres.Client, logger log.Logger) *Wallets 
 	}
 }
 
-func (ea *Wallets) RunInTransaction(ctx context.Context, persist func(dbtx database.Wallets) error) error {
+func (ea *Wallets) RunInTransaction(ctx context.Context, persist func(dbTx database.Wallets) error) error {
 	return ea.client.RunInTransaction(ctx, func(dbTx postgres.Client) error {
 		ea.client = dbTx
 		return persist(ea)
@@ -40,12 +41,13 @@ func (ea *Wallets) RunInTransaction(ctx context.Context, persist func(dbtx datab
 }
 
 func (ea *Wallets) Get(ctx context.Context, pubkey string) (*entities.Wallet, error) {
-	wallet := &models.Wallet{CompressedPublicKey: common.FromHex(pubkey), StoreID: ea.storeID}
-
+	fmt.Println("wallets get: ", pubkey)
+	wallet := &models.Wallet{Pubkey: pubkey, StoreID: ea.storeID}
 	err := ea.client.SelectPK(ctx, wallet)
 	if err != nil {
+
 		errMessage := "failed to get account"
-		ea.logger.With("pubkey", pubkey).WithError(err).Error(errMessage)
+		ea.logger.WithError(err).Error(errMessage)
 		return nil, errors.FromError(err).SetMessage(errMessage)
 	}
 
@@ -53,7 +55,7 @@ func (ea *Wallets) Get(ctx context.Context, pubkey string) (*entities.Wallet, er
 }
 
 func (ea *Wallets) GetDeleted(ctx context.Context, pubkey string) (*entities.Wallet, error) {
-	wallet := &models.Wallet{CompressedPublicKey: common.FromHex(pubkey), StoreID: ea.storeID}
+	wallet := &models.Wallet{Pubkey: pubkey, StoreID: ea.storeID}
 
 	err := ea.client.SelectDeletedPK(ctx, wallet)
 	if err != nil {
@@ -121,7 +123,7 @@ func (ea *Wallets) Add(ctx context.Context, account *entities.Wallet) (*entities
 	err := ea.client.Insert(ctx, accModel)
 	if err != nil {
 		errMessage := "failed to add account"
-		ea.logger.With("pubkey", account.CompressedPublicKey).WithError(err).Error(errMessage)
+		ea.logger.WithError(err).Error(errMessage)
 		return nil, errors.FromError(err).SetMessage(errMessage)
 	}
 
@@ -144,7 +146,7 @@ func (ea *Wallets) Update(ctx context.Context, account *entities.Wallet) (*entit
 }
 
 func (ea *Wallets) Delete(ctx context.Context, pubkey string) error {
-	err := ea.client.DeletePK(ctx, &models.Wallet{CompressedPublicKey: common.FromHex(pubkey), StoreID: ea.storeID})
+	err := ea.client.DeletePK(ctx, &models.Wallet{Pubkey: pubkey, StoreID: ea.storeID})
 	if err != nil {
 		errMessage := "failed to delete account"
 		ea.logger.With("pubkey", pubkey).WithError(err).Error(errMessage)
@@ -170,7 +172,7 @@ func (ea *Wallets) Restore(ctx context.Context, pubkey string) error {
 }
 
 func (ea *Wallets) Purge(ctx context.Context, pubkey string) error {
-	err := ea.client.ForceDeletePK(ctx, &models.Wallet{CompressedPublicKey: common.FromHex(pubkey), StoreID: ea.storeID})
+	err := ea.client.ForceDeletePK(ctx, &models.Wallet{Pubkey: pubkey, StoreID: ea.storeID})
 	if err != nil {
 		errMessage := "failed to permanently delete account"
 		ea.logger.With("address", pubkey).WithError(err).Error(errMessage)

@@ -167,7 +167,7 @@ func (c *WebSocketClient) manageOp() {
 				deadline = time.Now().Add(c.writeTimeout)
 			}
 
-			// Write Message
+			// Write Data
 			_ = op.c.conn.SetWriteDeadline(deadline)
 			err := op.c.conn.WriteJSON(op.msg)
 			op.sent <- err

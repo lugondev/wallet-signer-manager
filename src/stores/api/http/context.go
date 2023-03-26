@@ -6,6 +6,7 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/lugondev/signer-key-manager/pkg/common"
 	"net/http"
+	"strings"
 )
 
 type ctxKeyType string
@@ -30,5 +31,9 @@ func generateRandomKeyID() string {
 }
 
 func getPubkey(request *http.Request) string {
-	return mux.Vars(request)["pubkey"]
+	pubkeyRequest := strings.ToLower(mux.Vars(request)["pubkey"])
+	if strings.HasPrefix(pubkeyRequest, "0x") {
+		return pubkeyRequest[2:]
+	}
+	return pubkeyRequest
 }

@@ -1,6 +1,8 @@
 package models
 
 import (
+	"github.com/status-im/keycard-go/hexutils"
+	"strings"
 	"time"
 
 	"github.com/ethereum/go-ethereum/crypto"
@@ -11,8 +13,8 @@ import (
 type Wallet struct {
 	tableName struct{} `pg:"wallets"` // nolint:unused,structcheck // reason
 
+	Pubkey              string `pg:",pk"`
 	StoreID             string `pg:",pk"`
-	KeyID               string
 	PublicKey           []byte
 	CompressedPublicKey []byte
 	Tags                map[string]string
@@ -24,6 +26,7 @@ type Wallet struct {
 
 func NewWallet(account *entities.Wallet) *Wallet {
 	return &Wallet{
+		Pubkey:              strings.ToLower(hexutils.BytesToHex(account.CompressedPublicKey)),
 		PublicKey:           account.PublicKey,
 		CompressedPublicKey: account.CompressedPublicKey,
 		Tags:                account.Tags,
@@ -36,10 +39,13 @@ func NewWallet(account *entities.Wallet) *Wallet {
 
 func NewWalletFromKey(key *entities.Wallet, attr *entities.Attributes) *entities.Wallet {
 	pubKey, _ := crypto.UnmarshalPubkey(key.PublicKey)
+	compressedPubkey := crypto.CompressPubkey(pubKey)
+
 	return &entities.Wallet{
 		Tags:                attr.Tags,
+		Pubkey:              strings.ToLower(hexutils.BytesToHex(compressedPubkey)),
 		PublicKey:           key.PublicKey,
-		CompressedPublicKey: crypto.CompressPubkey(pubKey),
+		CompressedPublicKey: compressedPubkey,
 		Metadata: &entities.Metadata{
 			Disabled:  key.Metadata.Disabled,
 			CreatedAt: key.Metadata.CreatedAt,
@@ -48,16 +54,17 @@ func NewWalletFromKey(key *entities.Wallet, attr *entities.Attributes) *entities
 	}
 }
 
-func (eth *Wallet) ToEntity() *entities.Wallet {
+func (w *Wallet) ToEntity() *entities.Wallet {
 	return &entities.Wallet{
-		PublicKey:           eth.PublicKey,
-		CompressedPublicKey: eth.CompressedPublicKey,
+		Pubkey:              hexutils.BytesToHex(w.PublicKey),
+		PublicKey:           w.PublicKey,
+		CompressedPublicKey: w.CompressedPublicKey,
 		Metadata: &entities.Metadata{
-			Disabled:  eth.Disabled,
-			CreatedAt: eth.CreatedAt,
-			UpdatedAt: eth.UpdatedAt,
-			DeletedAt: eth.DeletedAt,
+			Disabled:  w.Disabled,
+			CreatedAt: w.CreatedAt,
+			UpdatedAt: w.UpdatedAt,
+			DeletedAt: w.DeletedAt,
 		},
-		Tags: eth.Tags,
+		Tags: w.Tags,
 	}
 }

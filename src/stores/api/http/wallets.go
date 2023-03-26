@@ -2,13 +2,13 @@ package http
 
 import (
 	"fmt"
+	"github.com/ethereum/go-ethereum/common/hexutil"
 	"net/http"
 
 	"github.com/lugondev/signer-key-manager/src/stores/api/formatters"
 
 	auth "github.com/lugondev/signer-key-manager/src/auth/api/http"
 
-	"github.com/ethereum/go-ethereum/common/hexutil"
 	infrahttp "github.com/lugondev/signer-key-manager/src/infra/http"
 
 	"github.com/gorilla/mux"
@@ -33,12 +33,12 @@ func (h *WalletsHandler) Register(r *mux.Router) {
 	r.Methods(http.MethodPost).Path("").HandlerFunc(h.create)
 	r.Methods(http.MethodGet).Path("").HandlerFunc(h.list)
 	r.Methods(http.MethodPost).Path("/import").HandlerFunc(h.importAccount)
-	r.Methods(http.MethodPost).Path("/{address}/sign").HandlerFunc(h.sign)
-	r.Methods(http.MethodPut).Path("/{address}/restore").HandlerFunc(h.restore)
-	r.Methods(http.MethodPatch).Path("/{address}").HandlerFunc(h.update)
-	r.Methods(http.MethodGet).Path("/{address}").HandlerFunc(h.getOne)
-	r.Methods(http.MethodDelete).Path("/{address}").HandlerFunc(h.delete)
-	r.Methods(http.MethodDelete).Path("/{address}/destroy").HandlerFunc(h.destroy)
+	r.Methods(http.MethodPost, http.MethodPut).Path("/{pubkey}/sign").HandlerFunc(h.sign)
+	r.Methods(http.MethodPut).Path("/{pubkey}/restore").HandlerFunc(h.restore)
+	r.Methods(http.MethodPatch, http.MethodPut).Path("/{pubkey}").HandlerFunc(h.update)
+	r.Methods(http.MethodGet).Path("/{pubkey}").HandlerFunc(h.getOne)
+	r.Methods(http.MethodDelete, http.MethodPut).Path("/{pubkey}").HandlerFunc(h.delete)
+	r.Methods(http.MethodDelete).Path("/{pubkey}/destroy").HandlerFunc(h.destroy)
 }
 
 // @Summary      Create a wallet
@@ -54,7 +54,7 @@ func (h *WalletsHandler) Register(r *mux.Router) {
 // @Failure      403        {object}  infrahttp.ErrorResponse        "Forbidden"
 // @Failure      404        {object}  infrahttp.ErrorResponse        "Store not found"
 // @Failure      500        {object}  infrahttp.ErrorResponse        "Internal server error"
-// @Router       /stores/{storeName}/ethereum [post]
+// @Router       /stores/{storeName}/wallets [post]
 func (h *WalletsHandler) create(rw http.ResponseWriter, request *http.Request) {
 	ctx := request.Context()
 
@@ -92,7 +92,7 @@ func (h *WalletsHandler) create(rw http.ResponseWriter, request *http.Request) {
 }
 
 // @Summary      Import a wallet
-// @Description  Import an ECDSA Secp256k1 key representing an Ethereum account
+// @Description  Import an ECDSA Secp256k1 key representing a Wallet
 // @Accept       json
 // @Produce      json
 // @Tags         Ethereum
@@ -104,7 +104,7 @@ func (h *WalletsHandler) create(rw http.ResponseWriter, request *http.Request) {
 // @Failure      403        {object}  infrahttp.ErrorResponse        "Forbidden"
 // @Failure      404        {object}  infrahttp.ErrorResponse        "Store not found"
 // @Failure      500        {object}  infrahttp.ErrorResponse        "Internal server error"
-// @Router       /stores/{storeName}/ethereum/import [post]
+// @Router       /stores/{storeName}/wallets/import [post]
 func (h *WalletsHandler) importAccount(rw http.ResponseWriter, request *http.Request) {
 	ctx := request.Context()
 
@@ -156,7 +156,7 @@ func (h *WalletsHandler) importAccount(rw http.ResponseWriter, request *http.Req
 // @Failure      404        {object}  infrahttp.ErrorResponse        "Store/Account not found"
 // @Failure      500        {object}  infrahttp.ErrorResponse        "Internal server error"
 // @Success      200        {object}  types.EthAccountResponse       "Update Ethereum Account"
-// @Router       /stores/{storeName}/ethereum/{address} [patch]
+// @Router       /stores/{storeName}/wallets/{pubkey} [patch]
 func (h *WalletsHandler) update(rw http.ResponseWriter, request *http.Request) {
 	ctx := request.Context()
 
@@ -200,7 +200,7 @@ func (h *WalletsHandler) update(rw http.ResponseWriter, request *http.Request) {
 // @Failure      403        {object}  infrahttp.ErrorResponse   "Forbidden"
 // @Failure      404        {object}  infrahttp.ErrorResponse   "Store/Account not found"
 // @Failure      500        {object}  infrahttp.ErrorResponse   "Internal server error"
-// @Router       /stores/{storeName}/ethereum/{address}/sign-message [post]
+// @Router       /stores/{storeName}/wallets/{pubkey}/sign-message [post]
 func (h *WalletsHandler) sign(rw http.ResponseWriter, request *http.Request) {
 	ctx := request.Context()
 
@@ -217,12 +217,13 @@ func (h *WalletsHandler) sign(rw http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	signature, err := walletStore.Sign(ctx, getPubkey(request), signPayloadReq.Message)
+	signature, err := walletStore.Sign(ctx, getPubkey(request), signPayloadReq.Data)
 	if err != nil {
 		infrahttp.WriteHTTPErrorResponse(rw, err)
 		return
 	}
 
+	//err = infrahttp.WriteJSON(rw, formatters.FormatSignatureResponse(signature, signPayloadReq, getPubkey(request)))
 	_, err = rw.Write([]byte(hexutil.Encode(signature)))
 	if err != nil {
 		infrahttp.WriteHTTPErrorResponse(rw, err)
@@ -243,7 +244,7 @@ func (h *WalletsHandler) sign(rw http.ResponseWriter, request *http.Request) {
 // @Failure      403        {object}  infrahttp.ErrorResponse   "Forbidden"
 // @Failure      500        {object}  infrahttp.ErrorResponse   "Internal server error"
 // @Success      200        {object}  types.EthAccountResponse  "Ethereum Account data"
-// @Router       /stores/{storeName}/ethereum/{address} [get]
+// @Router       /stores/{storeName}/wallets/{pubkey} [get]
 func (h *WalletsHandler) getOne(rw http.ResponseWriter, request *http.Request) {
 	ctx := request.Context()
 
@@ -252,7 +253,6 @@ func (h *WalletsHandler) getOne(rw http.ResponseWriter, request *http.Request) {
 		infrahttp.WriteHTTPErrorResponse(rw, err)
 		return
 	}
-
 	getDeleted := request.URL.Query().Get("deleted")
 	var wallet *entities.Wallet
 	if getDeleted == "" {
@@ -286,7 +286,7 @@ func (h *WalletsHandler) getOne(rw http.ResponseWriter, request *http.Request) {
 // @Failure      401         {object}  infrahttp.ErrorResponse  "Unauthorized"
 // @Failure      403         {object}  infrahttp.ErrorResponse  "Forbidden"
 // @Failure      500         {object}  infrahttp.ErrorResponse  "Internal server error"
-// @Router       /stores/{storeName}/ethereum [get]
+// @Router       /stores/{storeName}/wallets [get]
 func (h *WalletsHandler) list(rw http.ResponseWriter, request *http.Request) {
 	ctx := request.Context()
 
@@ -332,7 +332,7 @@ func (h *WalletsHandler) list(rw http.ResponseWriter, request *http.Request) {
 // @Failure      403        {object}  infrahttp.ErrorResponse  "Forbidden"
 // @Failure      404        {object}  infrahttp.ErrorResponse  "Store/Account not found"
 // @Failure      500        {object}  infrahttp.ErrorResponse  "Internal server error"
-// @Router       /stores/{storeName}/ethereum/{address} [delete]
+// @Router       /stores/{storeName}/wallets/{pubkey} [delete]
 func (h *WalletsHandler) delete(rw http.ResponseWriter, request *http.Request) {
 	ctx := request.Context()
 
@@ -351,7 +351,7 @@ func (h *WalletsHandler) delete(rw http.ResponseWriter, request *http.Request) {
 	rw.WriteHeader(http.StatusNoContent)
 }
 
-// @Summary      Destroy Ethereum Account
+// @Summary      Destroy Wallet
 // @Description  Hard delete a wallet, cannot be recovered
 // @Tags         Ethereum
 // @Accept       json
@@ -362,7 +362,7 @@ func (h *WalletsHandler) delete(rw http.ResponseWriter, request *http.Request) {
 // @Failure      403        {object}  infrahttp.ErrorResponse  "Forbidden"
 // @Failure      404        {object}  infrahttp.ErrorResponse  "Store/Account not found"
 // @Failure      500        {object}  infrahttp.ErrorResponse  "Internal server error"
-// @Router       /stores/{storeName}/ethereum/{address}/destroy [delete]
+// @Router       /stores/{storeName}/wallets/{pubkey}/destroy [delete]
 func (h *WalletsHandler) destroy(rw http.ResponseWriter, request *http.Request) {
 	ctx := request.Context()
 
@@ -381,7 +381,7 @@ func (h *WalletsHandler) destroy(rw http.ResponseWriter, request *http.Request) 
 	rw.WriteHeader(http.StatusNoContent)
 }
 
-// @Summary      Restore Ethereum Account
+// @Summary      Restore Wallet
 // @Description  Recover a soft-deleted Ethereum Account
 // @Tags         Ethereum
 // @Accept       json
@@ -392,7 +392,7 @@ func (h *WalletsHandler) destroy(rw http.ResponseWriter, request *http.Request) 
 // @Failure      403        {object}  infrahttp.ErrorResponse  "Forbidden"
 // @Failure      404        {object}  infrahttp.ErrorResponse  "Store/Account not found"
 // @Failure      500        {object}  infrahttp.ErrorResponse  "Internal server error"
-// @Router       /stores/{storeName}/ethereum/{address}/restore [put]
+// @Router       /stores/{storeName}/wallets/{pubkey}/restore [put]
 func (h *WalletsHandler) restore(rw http.ResponseWriter, request *http.Request) {
 	ctx := request.Context()
 

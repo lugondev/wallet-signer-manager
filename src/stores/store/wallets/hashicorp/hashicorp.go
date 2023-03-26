@@ -2,10 +2,10 @@ package hashicorp
 
 import (
 	"context"
-	"encoding/base64"
-	"fmt"
+	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"path"
+	"strings"
 
 	"github.com/lugondev/signer-key-manager/pkg/errors"
 	"github.com/lugondev/signer-key-manager/src/infra/hashicorp"
@@ -50,16 +50,14 @@ func (s *Store) Create(_ context.Context, id string, attr *entities.Attributes) 
 		s.logger.With("id", id).WithError(err).Error(errMessage)
 		return nil, errors.FromError(err).SetMessage(errMessage)
 	}
-	return parseAPISecretToKey(res)
+	return parseAPISecretToWallet(res)
 }
 
 func (s *Store) Import(_ context.Context, id string, privKey []byte, attr *entities.Attributes) (*entities.Wallet, error) {
-
-	fmt.Println("Importing key: ", id, " ", hexutil.Encode(privKey))
 	res, err := s.client.ImportWallet(map[string]interface{}{
 		idLabel:         id,
 		tagsLabel:       attr.Tags,
-		privateKeyLabel: hexutil.Encode(privKey)[2:],
+		privateKeyLabel: hexutil.Encode(privKey),
 	})
 	if err != nil {
 		errMessage := "failed to import Hashicorp key"
@@ -67,13 +65,13 @@ func (s *Store) Import(_ context.Context, id string, privKey []byte, attr *entit
 		return nil, errors.FromError(err).SetMessage(errMessage)
 	}
 
-	return parseAPISecretToKey(res)
+	return parseAPISecretToWallet(res)
 }
 
-func (s *Store) Get(_ context.Context, id string) (*entities.Wallet, error) {
-	logger := s.logger.With("id", id)
+func (s *Store) Get(_ context.Context, pubkey string) (*entities.Wallet, error) {
+	logger := s.logger.With("pubkey", pubkey)
 
-	res, err := s.client.GetWallet(id)
+	res, err := s.client.GetWallet(pubkey)
 	if err != nil {
 		errMessage := "failed to get Hashicorp key"
 		logger.WithError(err).Error(errMessage)
@@ -86,7 +84,7 @@ func (s *Store) Get(_ context.Context, id string) (*entities.Wallet, error) {
 		return nil, errors.NotFoundError(errMessage)
 	}
 
-	return parseAPISecretToKey(res)
+	return parseAPISecretToWallet(res)
 }
 
 func (s *Store) List(_ context.Context, _, _ uint64) ([]string, error) {
@@ -114,8 +112,8 @@ func (s *Store) List(_ context.Context, _, _ uint64) ([]string, error) {
 	return ids, nil
 }
 
-func (s *Store) Update(_ context.Context, id string, attr *entities.Attributes) (*entities.Wallet, error) {
-	res, err := s.client.UpdateWallet(id, map[string]interface{}{
+func (s *Store) Update(_ context.Context, pubkey string, attr *entities.Attributes) (*entities.Wallet, error) {
+	res, err := s.client.UpdateWallet(pubkey, map[string]interface{}{
 		tagsLabel: attr.Tags,
 	})
 	if err != nil {
@@ -124,7 +122,7 @@ func (s *Store) Update(_ context.Context, id string, attr *entities.Attributes) 
 		return nil, errors.FromError(err).SetMessage(errMessage)
 	}
 
-	return parseAPISecretToKey(res)
+	return parseAPISecretToWallet(res)
 }
 
 func (s *Store) Delete(_ context.Context, _ string) error {
@@ -151,8 +149,8 @@ func (s *Store) Restore(_ context.Context, _ string) error {
 	return err
 }
 
-func (s *Store) Destroy(_ context.Context, id string) error {
-	err := s.client.DestroyWallet(path.Join(id))
+func (s *Store) Destroy(_ context.Context, pubkey string) error {
+	err := s.client.DestroyWallet(path.Join(pubkey))
 	if err != nil {
 		errMessage := "failed to permanently delete Hashicorp key"
 		s.logger.WithError(err).Error(errMessage)
@@ -162,22 +160,18 @@ func (s *Store) Destroy(_ context.Context, id string) error {
 	return nil
 }
 
-func (s *Store) Sign(_ context.Context, id string, data []byte) ([]byte, error) {
-	logger := s.logger.With("id", id)
+func (s *Store) Sign(_ context.Context, pubkey string, data []byte) ([]byte, error) {
+	logger := s.logger.With("pubkey", pubkey)
+	if !strings.HasPrefix(pubkey, "0x") {
+		pubkey = "0x" + pubkey
+	}
 
-	res, err := s.client.Sign(id, data)
+	res, err := s.client.Sign(pubkey, data)
 	if err != nil {
 		errMessage := "failed to sign using Hashicorp key"
 		logger.WithError(err).Error(errMessage)
 		return nil, errors.FromError(err).SetMessage(errMessage)
 	}
 
-	signature, err := base64.URLEncoding.DecodeString(res.Data[signatureLabel].(string))
-	if err != nil {
-		errMessage := "failed to decode signature from Hashicorp Vault"
-		logger.WithError(err).Error(errMessage)
-		return nil, errors.HashicorpVaultError(errMessage)
-	}
-
-	return signature, nil
+	return common.FromHex(res.Data[signatureLabel].(string)), nil
 }

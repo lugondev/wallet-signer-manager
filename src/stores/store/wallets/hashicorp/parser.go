@@ -1,21 +1,25 @@
 package hashicorp
 
 import (
+	"fmt"
 	"github.com/ethereum/go-ethereum/common"
-	"time"
-
 	"github.com/lugondev/signer-key-manager/src/stores/entities"
 
 	"github.com/hashicorp/vault/api"
 )
 
-func parseAPISecretToKey(hashicorpSecret *api.Secret) (*entities.Wallet, error) {
+func parseAPISecretToWallet(hashicorpSecret *api.Secret) (*entities.Wallet, error) {
 	pubKey := hashicorpSecret.Data[publicKeyLabel].(string)
 	compressedPublicKey := hashicorpSecret.Data[compressedPublicKeyLabel].(string)
 	namespace := hashicorpSecret.Data[namespaceLabel].(string)
 
+	fmt.Println("pubkey: ", pubKey)
+	fmt.Println("compressedPublicKey: ", compressedPublicKey)
+	fmt.Println("namespace: ", namespace)
+
 	key := &entities.Wallet{
 		Namespaces:          namespace,
+		Pubkey:              compressedPublicKey,
 		PublicKey:           common.FromHex(pubKey),
 		CompressedPublicKey: common.FromHex(compressedPublicKey),
 		Metadata: &entities.Metadata{
@@ -31,8 +35,8 @@ func parseAPISecretToKey(hashicorpSecret *api.Secret) (*entities.Wallet, error) 
 		}
 	}
 
-	key.Metadata.CreatedAt, _ = time.Parse(time.RFC3339, hashicorpSecret.Data[createdAtLabel].(string))
-	key.Metadata.UpdatedAt, _ = time.Parse(time.RFC3339, hashicorpSecret.Data[updatedAtLabel].(string))
+	//key.Metadata.CreatedAt, _ = time.Parse(time.RFC3339, hashicorpSecret.Data[createdAtLabel].(string))
+	//key.Metadata.UpdatedAt, _ = time.Parse(time.RFC3339, hashicorpSecret.Data[updatedAtLabel].(string))
 
 	return key, nil
 }

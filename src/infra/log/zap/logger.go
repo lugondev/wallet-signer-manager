@@ -71,19 +71,19 @@ func (l *Logger) Fatal(msg string, keysAndValues ...interface{}) log.Logger {
 	return l
 }
 
-func (l Logger) WithError(err error) log.Logger {
+func (l *Logger) WithError(err error) log.Logger {
 	l.logger = l.logger.With("error", err)
-	return &l
+	return l
 }
 
-func (l Logger) With(args ...interface{}) log.Logger {
+func (l *Logger) With(args ...interface{}) log.Logger {
 	l.logger = l.logger.With(args...)
-	return &l
+	return l
 }
 
-func (l Logger) WithComponent(component string) log.Logger {
+func (l *Logger) WithComponent(component string) log.Logger {
 	l.logger = l.logger.Desugar().Named(component).Sugar()
-	return &l
+	return l
 }
 
 func (l *Logger) Write(p []byte) (n int, err error) {
@@ -91,7 +91,7 @@ func (l *Logger) Write(p []byte) (n int, err error) {
 	return 0, nil
 }
 
-func (l Logger) Sync() error {
+func (l *Logger) Sync() error {
 	return l.logger.Sync()
 }
 

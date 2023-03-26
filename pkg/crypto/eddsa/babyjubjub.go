@@ -10,7 +10,7 @@ import (
 )
 
 func CreateBabyjubjub(importedPrivKey []byte) (privKey, pubKey []byte, err error) {
-	babyJubJubPrivKey := babyjubjub.PrivateKey{}
+	var babyJubJubPrivKey *babyjubjub.PrivateKey
 	if importedPrivKey != nil {
 		_, err = babyJubJubPrivKey.SetBytes(importedPrivKey)
 		if err != nil {
@@ -44,7 +44,7 @@ func SignBabyjubjub(privKeyB, data []byte) ([]byte, error) {
 		return nil, fmt.Errorf("failed to parse private key. %s", err.Error())
 	}
 
-	signature, err := privKey.Sign(data, hash.MIMC_BN254.New("seed"))
+	signature, err := privKey.Sign(data, hash.MIMC_BN254.New())
 	if err != nil {
 		return nil, fmt.Errorf("failed to sign. %s", err.Error())
 	}
@@ -59,7 +59,7 @@ func VerifyBabyJubJubSignature(publicKey, message, signature []byte) (bool, erro
 		return false, err
 	}
 
-	verified, err := pubKey.Verify(signature, message, hash.MIMC_BN254.New("seed"))
+	verified, err := pubKey.Verify(signature, message, hash.MIMC_BN254.New())
 	if err != nil {
 		return false, err
 	}

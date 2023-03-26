@@ -102,7 +102,7 @@ func TestUnmarshalResponseMsg(t *testing.T) {
 				err = json.Unmarshal(*msg.raw.Error, errMgs)
 				require.NoError(t, err, "Unmarshal error should not error")
 				assert.Equal(t, tt.expectedError.Code, errMgs.Code, "Error Code should be correct")
-				assert.Equal(t, tt.expectedError.Message, errMgs.Message, "Error Message should be correct")
+				assert.Equal(t, tt.expectedError.Message, errMgs.Message, "Error Data should be correct")
 			} else {
 				assert.Nil(t, msg.raw.Error, "JSON-RPC Error should not be nil")
 				assert.Nil(t, msg.Error, "Error should be nil")

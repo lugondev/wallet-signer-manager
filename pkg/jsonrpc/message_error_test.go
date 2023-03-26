@@ -56,7 +56,7 @@ func TestUnmarshalErrorMsg(t *testing.T) {
 
 			// Assert unmarshal values
 			assert.Equal(t, tt.expectedCode, msg.Code, "Code should be correct")
-			assert.Equal(t, tt.expectedMessage, msg.Message, "Message should be correct")
+			assert.Equal(t, tt.expectedMessage, msg.Message, "Data should be correct")
 
 			if tt.expectedData != nil {
 				dataV := reflect.New(reflect.TypeOf(tt.expectedData))

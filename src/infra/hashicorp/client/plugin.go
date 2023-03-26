@@ -1,14 +1,14 @@
 package client
 
 import (
-	"encoding/base64"
+	"github.com/ethereum/go-ethereum/common/hexutil"
 	"path"
 
 	"github.com/hashicorp/vault/api"
 )
 
-func (c *HashicorpVaultClient) GetWallet(id string) (*api.Secret, error) {
-	secret, err := c.client.Logical().Read(c.pathWallets(id))
+func (c *HashicorpVaultClient) GetWallet(pubkey string) (*api.Secret, error) {
+	secret, err := c.client.Logical().Read(c.pathWallets(pubkey))
 	if err != nil {
 		return nil, parseErrorResponse(err)
 	}
@@ -34,8 +34,8 @@ func (c *HashicorpVaultClient) ImportWallet(data map[string]interface{}) (*api.S
 	return secret, nil
 }
 
-func (c *HashicorpVaultClient) UpdateWallet(id string, data map[string]interface{}) (*api.Secret, error) {
-	secret, err := c.client.Logical().Write(c.pathWallets(id), data)
+func (c *HashicorpVaultClient) UpdateWallet(pubkey string, data map[string]interface{}) (*api.Secret, error) {
+	secret, err := c.client.Logical().Write(c.pathWallets(pubkey), data)
 	if err != nil {
 		return nil, parseErrorResponse(err)
 	}
@@ -43,8 +43,8 @@ func (c *HashicorpVaultClient) UpdateWallet(id string, data map[string]interface
 	return secret, nil
 }
 
-func (c *HashicorpVaultClient) DestroyWallet(id string) error {
-	_, err := c.client.Logical().Delete(path.Join(c.pathWallets(id), "destroy"))
+func (c *HashicorpVaultClient) DestroyWallet(pubkey string) error {
+	_, err := c.client.Logical().Delete(path.Join(c.pathWallets(pubkey), "destroy"))
 	if err != nil {
 		return parseErrorResponse(err)
 	}
@@ -61,9 +61,9 @@ func (c *HashicorpVaultClient) ListWallets() (*api.Secret, error) {
 	return secret, nil
 }
 
-func (c *HashicorpVaultClient) Sign(id string, data []byte) (*api.Secret, error) {
-	secret, err := c.client.Logical().Write(path.Join(c.pathWallets(id), "sign"), map[string]interface{}{
-		dataLabel: base64.URLEncoding.EncodeToString(data),
+func (c *HashicorpVaultClient) Sign(pubkey string, data []byte) (*api.Secret, error) {
+	secret, err := c.client.Logical().Write(path.Join(c.pathWallets(pubkey), "sign"), map[string]interface{}{
+		dataLabel: hexutil.Encode(data),
 	})
 	if err != nil {
 		return nil, parseErrorResponse(err)
