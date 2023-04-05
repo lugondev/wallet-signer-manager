@@ -16,7 +16,7 @@ func (c Connector) Create(ctx context.Context, id string, attr *entities.Attribu
 	logger := c.logger.With("id", id)
 	logger.Debug("creating wallet")
 
-	err := c.authorizator.CheckPermission(&authentities.Operation{Action: authentities.ActionWrite, Resource: authentities.ResourceEthAccount})
+	err := c.authorizator.CheckPermission(&authentities.Operation{Action: authentities.ActionWrite, Resource: authentities.ResourceWallets})
 	if err != nil {
 		return nil, err
 	}

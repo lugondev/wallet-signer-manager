@@ -6,7 +6,6 @@ require (
 	github.com/auth0/go-jwt-middleware/v2 v2.0.0-beta.1
 	github.com/btcsuite/btcd v0.23.4
 	github.com/btcsuite/btcd/btcec/v2 v2.2.2
-	github.com/consensys/gnark-crypto v0.9.1-0.20230105202408-1a7a29904a7c
 	github.com/ethereum/go-ethereum v1.11.4
 	github.com/fsnotify/fsnotify v1.6.0
 	github.com/go-pg/pg/v10 v10.10.1
@@ -27,7 +26,6 @@ require (
 	github.com/spf13/cobra v1.5.0
 	github.com/spf13/pflag v1.0.5
 	github.com/spf13/viper v1.7.1
-	github.com/status-im/keycard-go v0.2.0
 	github.com/stretchr/testify v1.8.1
 	go.elastic.co/ecszap v1.0.0
 	go.uber.org/zap v1.19.1

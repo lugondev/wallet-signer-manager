@@ -7,53 +7,19 @@ import (
 
 type Permission string
 
-const ReadSecret Permission = "read:secrets"
-const WriteSecret Permission = "write:secrets"
-const DeleteSecret Permission = "delete:secrets"
-const DestroySecret Permission = "destroy:secrets"
-
-const ReadKey Permission = "read:keys"
-const WriteKey Permission = "write:keys"
-const DeleteKey Permission = "delete:keys"
-const DestroyKey Permission = "destroy:keys"
-const SignKey Permission = "sign:keys"
-const EncryptKey Permission = "encrypt:keys"
-
-const ReadEth Permission = "read:ethereum"
-const WriteEth Permission = "write:ethereum"
-const DeleteEth Permission = "delete:ethereum"
-const DestroyEth Permission = "destroy:ethereum"
-const SignEth Permission = "sign:ethereum"
-const EncryptEth Permission = "encrypt:ethereum"
-
-const ProxyNode Permission = "proxy:nodes"
-
-const ReadAlias Permission = "read:aliases"
-const WriteAlias Permission = "write:aliases"
-const DeleteAlias Permission = "delete:aliases"
+const ReadWallet Permission = "read:wallets"
+const WriteWallet Permission = "write:wallets"
+const DeleteWallet Permission = "delete:wallets"
+const DestroyWallet Permission = "destroy:wallets"
+const SignWallet Permission = "sign:wallets"
 
 func ListPermissions() []Permission {
 	return []Permission{
-		ReadSecret,
-		WriteSecret,
-		DeleteSecret,
-		DestroySecret,
-		ReadKey,
-		WriteKey,
-		DeleteKey,
-		DestroyKey,
-		SignKey,
-		EncryptKey,
-		ReadEth,
-		WriteEth,
-		DeleteEth,
-		DestroyEth,
-		SignEth,
-		EncryptEth,
-		ProxyNode,
-		ReadAlias,
-		WriteAlias,
-		DeleteAlias,
+		ReadWallet,
+		WriteWallet,
+		DeleteWallet,
+		DestroyWallet,
+		SignWallet,
 	}
 }
 

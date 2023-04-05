@@ -14,7 +14,7 @@ import (
 
 func (c *Connector) ImportWallets(ctx context.Context, storeName string, userInfo *authtypes.UserInfo) error {
 	logger := c.logger.With("store_name", storeName)
-	logger.Info("importing ethereum accounts...")
+	logger.Info("importing wallets...")
 
 	resolver := authorizator.New(userInfo.Permissions, userInfo.Tenant, c.logger)
 

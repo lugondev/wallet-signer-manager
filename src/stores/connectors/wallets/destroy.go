@@ -14,7 +14,7 @@ func (c Connector) Destroy(ctx context.Context, pubkey string) error {
 	logger := c.logger.With("pubkey", pubkey)
 	logger.Debug("destroying wallet")
 
-	err := c.authorizator.CheckPermission(&entities.Operation{Action: entities.ActionDestroy, Resource: entities.ResourceEthAccount})
+	err := c.authorizator.CheckPermission(&entities.Operation{Action: entities.ActionDestroy, Resource: entities.ResourceWallets})
 	if err != nil {
 		return err
 	}

@@ -24,7 +24,7 @@ func (c Connector) Import(ctx context.Context, id string, privKey []byte, attr *
 	}
 
 	logger.Debug("checking permissions")
-	err := c.authorizator.CheckPermission(&authentities.Operation{Action: authentities.ActionWrite, Resource: authentities.ResourceEthAccount})
+	err := c.authorizator.CheckPermission(&authentities.Operation{Action: authentities.ActionWrite, Resource: authentities.ResourceWallets})
 	if err != nil {
 		return nil, err
 	}

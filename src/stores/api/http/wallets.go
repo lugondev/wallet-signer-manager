@@ -65,6 +65,7 @@ func (h *WalletsHandler) create(rw http.ResponseWriter, request *http.Request) {
 		return
 	}
 
+	fmt.Println(auth.UserInfoFromContext(ctx))
 	walletStore, err := h.stores.Wallet(ctx, StoreNameFromContext(request.Context()), auth.UserInfoFromContext(ctx))
 	if err != nil {
 		infrahttp.WriteHTTPErrorResponse(rw, err)

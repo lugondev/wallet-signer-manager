@@ -8,6 +8,7 @@ CREATE TABLE IF NOT EXISTS wallets
     pubkey                text                                           NOT NULL,
     compressed_public_key BYTEA                                          NOT NULL,
     tags                  JSONB,
+    auth                  JSONB,
     disabled              BOOLEAN     default false,
     created_at            TIMESTAMPTZ DEFAULT (now() at time zone 'utc') NOT NULL,
     updated_at            TIMESTAMPTZ DEFAULT (now() at time zone 'utc') NOT NULL,

@@ -7,7 +7,7 @@ import (
 )
 
 func (c Connector) List(ctx context.Context, limit, offset uint64) ([]string, error) {
-	err := c.authorizator.CheckPermission(&entities.Operation{Action: entities.ActionRead, Resource: entities.ResourceEthAccount})
+	err := c.authorizator.CheckPermission(&entities.Operation{Action: entities.ActionRead, Resource: entities.ResourceWallets})
 	if err != nil {
 		return nil, err
 	}
@@ -27,7 +27,7 @@ func (c Connector) List(ctx context.Context, limit, offset uint64) ([]string, er
 }
 
 func (c Connector) ListDeleted(ctx context.Context, limit, offset uint64) ([]string, error) {
-	err := c.authorizator.CheckPermission(&entities.Operation{Action: entities.ActionRead, Resource: entities.ResourceEthAccount})
+	err := c.authorizator.CheckPermission(&entities.Operation{Action: entities.ActionRead, Resource: entities.ResourceWallets})
 	if err != nil {
 		return nil, err
 	}

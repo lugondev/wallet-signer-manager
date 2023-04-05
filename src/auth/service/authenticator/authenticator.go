@@ -40,70 +40,70 @@ func New(jwtValidator jwt.Validator, apiKeyClaims map[string]*entities.UserClaim
 	}
 }
 
-func (authen *Authenticator) AuthenticateJWT(ctx context.Context, token string) (*entities.UserInfo, error) {
-	if authen.jwtValidator == nil {
+func (a *Authenticator) AuthenticateJWT(ctx context.Context, token string) (*entities.UserInfo, error) {
+	if a.jwtValidator == nil {
 		errMessage := "jwt authentication method is not enabled"
-		authen.logger.Error(errMessage)
+		a.logger.Error(errMessage)
 		return nil, errors.UnauthorizedError(errMessage)
 	}
 
-	authen.logger.Debug("extracting user info from jwt token")
+	a.logger.Debug("extracting user info from jwt token")
 
-	tokenClaims, err := authen.jwtValidator.ValidateToken(ctx, token)
+	tokenClaims, err := a.jwtValidator.ValidateToken(ctx, token)
 	if err != nil {
 		errMessage := "failed to validate jwt token"
-		authen.logger.WithError(err).Error(errMessage)
+		a.logger.WithError(err).Error(errMessage)
 		return nil, errors.UnauthorizedError(errMessage)
 	}
 
-	claims, err := authen.jwtValidator.ParseClaims(tokenClaims)
+	claims, err := a.jwtValidator.ParseClaims(tokenClaims)
 	if err != nil {
 		errMessage := "failed to parse jwt token claims"
-		authen.logger.WithError(err).Error(errMessage)
+		a.logger.WithError(err).Error(errMessage)
 		return nil, errors.UnauthorizedError(errMessage)
 	}
 
-	return authen.userInfoFromClaims(JWTAuthMode, claims), nil
+	return a.userInfoFromClaims(JWTAuthMode, claims), nil
 }
 
-func (authen *Authenticator) AuthenticateAPIKey(_ context.Context, apiKey []byte) (*entities.UserInfo, error) {
-	if authen.apiKeyClaims == nil {
+func (a *Authenticator) AuthenticateAPIKey(_ context.Context, apiKey []byte) (*entities.UserInfo, error) {
+	if a.apiKeyClaims == nil {
 		errMessage := "api key authentication method is not enabled"
-		authen.logger.Error(errMessage)
+		a.logger.Error(errMessage)
 		return nil, errors.UnauthorizedError(errMessage)
 	}
 
-	authen.logger.Debug("extracting user info from api key")
+	a.logger.Debug("extracting user info from api key")
 
 	apiKeySha256 := fmt.Sprintf("%x", sha256.Sum256(apiKey))
-	claims, ok := authen.apiKeyClaims[apiKeySha256]
+	claims, ok := a.apiKeyClaims[apiKeySha256]
 	if !ok {
 		errMessage := "invalid api key"
-		authen.logger.Warn(errMessage)
+		a.logger.Warn(errMessage)
 		return nil, errors.UnauthorizedError(errMessage)
 	}
 
-	return authen.userInfoFromClaims(APIKeyAuthMode, claims), nil
+	return a.userInfoFromClaims(APIKeyAuthMode, claims), nil
 }
 
 // AuthenticateTLS checks rootCAs and retrieve user info
-func (authen Authenticator) AuthenticateTLS(_ context.Context, connState *tls2.ConnectionState) (*entities.UserInfo, error) {
-	if authen.rootCAs == nil {
+func (a *Authenticator) AuthenticateTLS(_ context.Context, connState *tls2.ConnectionState) (*entities.UserInfo, error) {
+	if a.rootCAs == nil {
 		errMessage := "tls authentication method is not enabled"
-		authen.logger.Error(errMessage)
+		a.logger.Error(errMessage)
 		return nil, errors.UnauthorizedError(errMessage)
 	}
 
 	if !connState.HandshakeComplete {
 		errMessage := "request must complete valid handshake"
-		authen.logger.Warn(errMessage)
+		a.logger.Warn(errMessage)
 		return nil, errors.UnauthorizedError(errMessage)
 	}
 
-	err := tls.VerifyCertificateAuthority(connState.PeerCertificates, connState.ServerName, authen.rootCAs, true)
+	err := tls.VerifyCertificateAuthority(connState.PeerCertificates, connState.ServerName, a.rootCAs, true)
 	if err != nil {
 		errMessage := "invalid tls certificate"
-		authen.logger.WithError(err).Warn(errMessage)
+		a.logger.WithError(err).Warn(errMessage)
 		return nil, errors.UnauthorizedError(errMessage)
 	}
 
@@ -114,10 +114,10 @@ func (authen Authenticator) AuthenticateTLS(_ context.Context, connState *tls2.C
 		Permissions: clientCert.Subject.OrganizationalUnit,
 		Roles:       clientCert.Subject.Organization,
 	}
-	return authen.userInfoFromClaims(TLSAuthMode, claims), nil
+	return a.userInfoFromClaims(TLSAuthMode, claims), nil
 }
 
-func (authen *Authenticator) userInfoFromClaims(authMode string, claims *entities.UserClaims) *entities.UserInfo {
+func (a *Authenticator) userInfoFromClaims(authMode string, claims *entities.UserClaims) *entities.UserInfo {
 	userInfo := &entities.UserInfo{AuthMode: authMode}
 
 	// If more than one element in subject, then the username has been specified

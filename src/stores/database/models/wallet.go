@@ -1,7 +1,7 @@
 package models
 
 import (
-	"github.com/status-im/keycard-go/hexutils"
+	"encoding/hex"
 	"strings"
 	"time"
 
@@ -26,7 +26,7 @@ type Wallet struct {
 
 func NewWallet(account *entities.Wallet) *Wallet {
 	return &Wallet{
-		Pubkey:              strings.ToLower(hexutils.BytesToHex(account.CompressedPublicKey)),
+		Pubkey:              strings.ToLower(hex.EncodeToString(account.CompressedPublicKey)),
 		PublicKey:           account.PublicKey,
 		CompressedPublicKey: account.CompressedPublicKey,
 		Tags:                account.Tags,
@@ -43,7 +43,7 @@ func NewWalletFromKey(key *entities.Wallet, attr *entities.Attributes) *entities
 
 	return &entities.Wallet{
 		Tags:                attr.Tags,
-		Pubkey:              strings.ToLower(hexutils.BytesToHex(compressedPubkey)),
+		Pubkey:              strings.ToLower(hex.EncodeToString(compressedPubkey)),
 		PublicKey:           key.PublicKey,
 		CompressedPublicKey: compressedPubkey,
 		Metadata: &entities.Metadata{
@@ -56,7 +56,7 @@ func NewWalletFromKey(key *entities.Wallet, attr *entities.Attributes) *entities
 
 func (w *Wallet) ToEntity() *entities.Wallet {
 	return &entities.Wallet{
-		Pubkey:              hexutils.BytesToHex(w.PublicKey),
+		Pubkey:              hex.EncodeToString(w.PublicKey),
 		PublicKey:           w.PublicKey,
 		CompressedPublicKey: w.CompressedPublicKey,
 		Metadata: &entities.Metadata{

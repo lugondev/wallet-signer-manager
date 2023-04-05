@@ -1,7 +1,6 @@
 package hashicorp
 
 import (
-	"fmt"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/lugondev/signer-key-manager/src/stores/entities"
 
@@ -12,10 +11,6 @@ func parseAPISecretToWallet(hashicorpSecret *api.Secret) (*entities.Wallet, erro
 	pubKey := hashicorpSecret.Data[publicKeyLabel].(string)
 	compressedPublicKey := hashicorpSecret.Data[compressedPublicKeyLabel].(string)
 	namespace := hashicorpSecret.Data[namespaceLabel].(string)
-
-	fmt.Println("pubkey: ", pubKey)
-	fmt.Println("compressedPublicKey: ", compressedPublicKey)
-	fmt.Println("namespace: ", namespace)
 
 	key := &entities.Wallet{
 		Namespaces:          namespace,

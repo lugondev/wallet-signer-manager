@@ -14,7 +14,7 @@ func (c Connector) Delete(ctx context.Context, pubkey string) error {
 	logger := c.logger.With("pubkey", pubkey)
 	logger.Debug("deleting ethereum account")
 
-	err := c.authorizator.CheckPermission(&entities.Operation{Action: entities.ActionDelete, Resource: entities.ResourceEthAccount})
+	err := c.authorizator.CheckPermission(&entities.Operation{Action: entities.ActionDelete, Resource: entities.ResourceWallets})
 	if err != nil {
 		return err
 	}

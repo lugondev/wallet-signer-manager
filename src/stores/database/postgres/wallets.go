@@ -2,7 +2,6 @@ package postgres
 
 import (
 	"context"
-	"fmt"
 	"github.com/ethereum/go-ethereum/common"
 	"time"
 
@@ -41,7 +40,6 @@ func (ea *Wallets) RunInTransaction(ctx context.Context, persist func(dbTx datab
 }
 
 func (ea *Wallets) Get(ctx context.Context, pubkey string) (*entities.Wallet, error) {
-	fmt.Println("wallets get: ", pubkey)
 	wallet := &models.Wallet{Pubkey: pubkey, StoreID: ea.storeID}
 	err := ea.client.SelectPK(ctx, wallet)
 	if err != nil {

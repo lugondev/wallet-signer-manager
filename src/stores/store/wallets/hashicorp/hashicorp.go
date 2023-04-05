@@ -2,8 +2,8 @@ package hashicorp
 
 import (
 	"context"
+	"encoding/hex"
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/common/hexutil"
 	"path"
 	"strings"
 
@@ -57,7 +57,7 @@ func (s *Store) Import(_ context.Context, id string, privKey []byte, attr *entit
 	res, err := s.client.ImportWallet(map[string]interface{}{
 		idLabel:         id,
 		tagsLabel:       attr.Tags,
-		privateKeyLabel: hexutil.Encode(privKey),
+		privateKeyLabel: hex.EncodeToString(privKey),
 	})
 	if err != nil {
 		errMessage := "failed to import Hashicorp key"

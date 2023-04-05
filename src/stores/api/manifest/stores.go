@@ -4,11 +4,9 @@ import (
 	"context"
 
 	"github.com/lugondev/signer-key-manager/pkg/errors"
-	"github.com/lugondev/signer-key-manager/pkg/json"
 	authtypes "github.com/lugondev/signer-key-manager/src/auth/entities"
 	entities2 "github.com/lugondev/signer-key-manager/src/entities"
 	"github.com/lugondev/signer-key-manager/src/stores"
-	"github.com/lugondev/signer-key-manager/src/stores/api/types"
 	"github.com/lugondev/signer-key-manager/src/stores/entities"
 )
 
@@ -29,7 +27,7 @@ func (h *StoresHandler) Register(ctx context.Context, mnfs []entities2.Manifest)
 		var err error
 		switch mnf.ResourceType {
 		case entities.WalletStoreType:
-			err = h.CreateWallet(ctx, mnf.Name, mnf.AllowedTenants, mnf.Specs)
+			err = h.CreateWallet(ctx, mnf.Name, mnf.AllowedTenants)
 		default:
 			err = errors.InvalidFormatError("invalid store type")
 		}
@@ -42,14 +40,9 @@ func (h *StoresHandler) Register(ctx context.Context, mnfs []entities2.Manifest)
 	return nil
 }
 
-func (h *StoresHandler) CreateWallet(ctx context.Context, name string, allowedTenants []string, specs interface{}) error {
-	createReq := &types.CreateEthereumStoreRequest{}
-	err := json.UnmarshalYAML(specs, createReq)
-	if err != nil {
-		return errors.InvalidFormatError(err.Error())
-	}
+func (h *StoresHandler) CreateWallet(ctx context.Context, name string, allowedTenants []string) error {
 
-	err = h.stores.CreateWallet(ctx, name, createReq.KeyStore, allowedTenants, h.userInfo)
+	err := h.stores.CreateWallet(ctx, name, allowedTenants, h.userInfo)
 	if err != nil {
 		return err
 	}

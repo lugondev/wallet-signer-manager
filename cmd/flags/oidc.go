@@ -66,7 +66,7 @@ Environment variable: %q`, authOIDCCustomClaimsEnv)
 func NewOIDCConfig(vipr *viper.Viper) *jose.Config {
 	issuerURL := vipr.GetString(authOIDCIssuerURLViperKey)
 
-	aud := []string{}
+	var aud []string
 	if vipr.GetString(AuthOIDCAudienceViperKey) != "" {
 		aud = strings.Split(vipr.GetString(AuthOIDCAudienceViperKey), ",")
 	}

@@ -11,7 +11,7 @@ import (
 func (c Connector) Get(ctx context.Context, pubkey string) (*entities.Wallet, error) {
 	logger := c.logger.With("pubkey", pubkey)
 
-	err := c.authorizator.CheckPermission(&authentities.Operation{Action: authentities.ActionRead, Resource: authentities.ResourceEthAccount})
+	err := c.authorizator.CheckPermission(&authentities.Operation{Action: authentities.ActionRead, Resource: authentities.ResourceWallets})
 	if err != nil {
 		return nil, err
 	}
@@ -28,7 +28,7 @@ func (c Connector) Get(ctx context.Context, pubkey string) (*entities.Wallet, er
 func (c Connector) GetDeleted(ctx context.Context, pubkey string) (*entities.Wallet, error) {
 	logger := c.logger.With("pubkey", pubkey)
 
-	err := c.authorizator.CheckPermission(&authentities.Operation{Action: authentities.ActionRead, Resource: authentities.ResourceEthAccount})
+	err := c.authorizator.CheckPermission(&authentities.Operation{Action: authentities.ActionRead, Resource: authentities.ResourceWallets})
 	if err != nil {
 		return nil, err
 	}

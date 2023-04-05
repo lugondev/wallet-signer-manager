@@ -4,7 +4,7 @@
   specs:
     mount_point: quorum
     address: http://0.0.0.0:8200
-    token: 's.LtsIPANb31NG3w85M0Nt5KcU'
+    token: 's.rSvcGSWGZ3y3uqdGDzLMU4OA'
     namespace: 'lugon-test'
 - kind: Store
   type: wallet

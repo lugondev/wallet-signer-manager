@@ -15,7 +15,7 @@ func (c Connector) Update(ctx context.Context, pubkey string, attr *entities.Att
 	logger := c.logger.With("pubkey", pubkey)
 	logger.Debug("updating wallet")
 
-	err := c.authorizator.CheckPermission(&authtypes.Operation{Action: authtypes.ActionWrite, Resource: authtypes.ResourceEthAccount})
+	err := c.authorizator.CheckPermission(&authtypes.Operation{Action: authtypes.ActionWrite, Resource: authtypes.ResourceWallets})
 	if err != nil {
 		return nil, err
 	}
