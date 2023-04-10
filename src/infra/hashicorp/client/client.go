@@ -2,8 +2,8 @@ package client
 
 import (
 	"github.com/hashicorp/vault/api"
-	"github.com/lugondev/signer-key-manager/pkg/errors"
-	"github.com/lugondev/signer-key-manager/src/infra/hashicorp"
+	"github.com/lugondev/wallet-signer-manager/pkg/errors"
+	"github.com/lugondev/wallet-signer-manager/src/infra/hashicorp"
 )
 
 const dataLabel = "data"

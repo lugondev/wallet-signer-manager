@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	postgresclient "github.com/lugondev/signer-key-manager/src/infra/postgres/client"
+	postgresclient "github.com/lugondev/wallet-signer-manager/src/infra/postgres/client"
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
 )

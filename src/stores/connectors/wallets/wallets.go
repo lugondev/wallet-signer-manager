@@ -1,11 +1,11 @@
 package wallets
 
 import (
-	"github.com/lugondev/signer-key-manager/src/auth"
-	"github.com/lugondev/signer-key-manager/src/entities"
-	"github.com/lugondev/signer-key-manager/src/infra/log"
-	"github.com/lugondev/signer-key-manager/src/stores"
-	"github.com/lugondev/signer-key-manager/src/stores/database"
+	"github.com/lugondev/wallet-signer-manager/src/auth"
+	"github.com/lugondev/wallet-signer-manager/src/entities"
+	"github.com/lugondev/wallet-signer-manager/src/infra/log"
+	"github.com/lugondev/wallet-signer-manager/src/stores"
+	"github.com/lugondev/wallet-signer-manager/src/stores/database"
 )
 
 type Connector struct {

@@ -3,9 +3,9 @@ package vaults
 import (
 	"context"
 
-	auth "github.com/lugondev/signer-key-manager/src/auth/entities"
-	"github.com/lugondev/signer-key-manager/src/auth/service/authorizator"
-	"github.com/lugondev/signer-key-manager/src/entities"
+	auth "github.com/lugondev/wallet-signer-manager/src/auth/entities"
+	"github.com/lugondev/wallet-signer-manager/src/auth/service/authorizator"
+	"github.com/lugondev/wallet-signer-manager/src/entities"
 )
 
 func (c *Vaults) Get(ctx context.Context, name string, userInfo *auth.UserInfo) (*entities.Vault, error) {

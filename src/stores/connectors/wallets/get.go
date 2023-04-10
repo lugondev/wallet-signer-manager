@@ -3,9 +3,9 @@ package wallets
 import (
 	"context"
 
-	authentities "github.com/lugondev/signer-key-manager/src/auth/entities"
+	authentities "github.com/lugondev/wallet-signer-manager/src/auth/entities"
 
-	"github.com/lugondev/signer-key-manager/src/stores/entities"
+	"github.com/lugondev/wallet-signer-manager/src/stores/entities"
 )
 
 func (c Connector) Get(ctx context.Context, pubkey string) (*entities.Wallet, error) {

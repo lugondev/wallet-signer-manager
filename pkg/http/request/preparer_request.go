@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/lugondev/signer-key-manager/pkg/http/header"
+	"github.com/lugondev/wallet-signer-manager/pkg/http/header"
 )
 
 func OverrideURL(dst, src *url.URL) {

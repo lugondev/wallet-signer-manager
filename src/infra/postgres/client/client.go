@@ -6,9 +6,9 @@ import (
 	"github.com/go-pg/pg/v10"
 	"github.com/go-pg/pg/v10/orm"
 	"github.com/lib/pq"
-	"github.com/lugondev/signer-key-manager/pkg/errors"
+	"github.com/lugondev/wallet-signer-manager/pkg/errors"
 
-	"github.com/lugondev/signer-key-manager/src/infra/postgres"
+	"github.com/lugondev/wallet-signer-manager/src/infra/postgres"
 )
 
 type PostgresClient struct {

@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/lugondev/signer-key-manager/pkg/errors"
-	"github.com/lugondev/signer-key-manager/src/auth/entities"
+	"github.com/lugondev/wallet-signer-manager/pkg/errors"
+	"github.com/lugondev/wallet-signer-manager/src/auth/entities"
 )
 
 func (i *Roles) Create(ctx context.Context, name string, permissions []entities.Permission, _ *entities.UserInfo) error {

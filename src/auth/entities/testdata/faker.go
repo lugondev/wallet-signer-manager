@@ -1,7 +1,7 @@
 package testdata
 
 import (
-	"github.com/lugondev/signer-key-manager/src/auth/entities"
+	"github.com/lugondev/wallet-signer-manager/src/auth/entities"
 )
 
 func FakeUserClaims() *entities.UserClaims {

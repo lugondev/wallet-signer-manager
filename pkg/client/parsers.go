@@ -7,7 +7,7 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	http2 "github.com/lugondev/signer-key-manager/src/infra/http"
+	http2 "github.com/lugondev/wallet-signer-manager/src/infra/http"
 )
 
 func parseResponse(response *http.Response, resp interface{}) error {

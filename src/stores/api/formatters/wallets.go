@@ -5,9 +5,9 @@ import (
 	"github.com/btcsuite/btcd/chaincfg"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/lugondev/signer-key-manager/src/stores/api/types"
-	"github.com/lugondev/signer-key-manager/src/stores/entities"
 	"github.com/lugondev/tx-builder/blockchain/bitcoin"
+	"github.com/lugondev/wallet-signer-manager/src/stores/api/types"
+	"github.com/lugondev/wallet-signer-manager/src/stores/entities"
 )
 
 func FormatWalletResponse(wallet *entities.Wallet) *types.WalletResponse {

@@ -4,9 +4,9 @@ import (
 	"net/http"
 	"net/http/httputil"
 
-	"github.com/lugondev/signer-key-manager/pkg/http/request"
-	"github.com/lugondev/signer-key-manager/pkg/http/response"
-	"github.com/lugondev/signer-key-manager/pkg/http/transport"
+	"github.com/lugondev/wallet-signer-manager/pkg/http/request"
+	"github.com/lugondev/wallet-signer-manager/pkg/http/response"
+	"github.com/lugondev/wallet-signer-manager/pkg/http/transport"
 	"github.com/oxtoacart/bpool"
 )
 

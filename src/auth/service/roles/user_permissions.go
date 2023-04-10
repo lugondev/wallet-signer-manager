@@ -3,7 +3,7 @@ package roles
 import (
 	"context"
 
-	"github.com/lugondev/signer-key-manager/src/auth/entities"
+	"github.com/lugondev/wallet-signer-manager/src/auth/entities"
 )
 
 func (i *Roles) UserPermissions(ctx context.Context, userInfo *entities.UserInfo) []entities.Permission {

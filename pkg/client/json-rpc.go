@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/lugondev/signer-key-manager/pkg/jsonrpc"
+	"github.com/lugondev/wallet-signer-manager/pkg/jsonrpc"
 )
 
 const jsonRPCPath = "nodes"

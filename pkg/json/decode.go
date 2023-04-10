@@ -8,7 +8,7 @@ import (
 	"gopkg.in/yaml.v2"
 
 	"github.com/go-playground/validator/v10"
-	"github.com/lugondev/signer-key-manager/pkg/errors"
+	"github.com/lugondev/wallet-signer-manager/pkg/errors"
 )
 
 func UnmarshalBody(body io.Reader, req interface{}) error {

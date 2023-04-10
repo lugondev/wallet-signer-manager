@@ -7,7 +7,7 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/lugondev/signer-key-manager/pkg/errors"
+	"github.com/lugondev/wallet-signer-manager/pkg/errors"
 )
 
 const (

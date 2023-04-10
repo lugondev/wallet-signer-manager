@@ -2,16 +2,16 @@ package stores
 
 import (
 	"context"
-	"github.com/lugondev/signer-key-manager/src/stores/connectors/wallets"
+	"github.com/lugondev/wallet-signer-manager/src/stores/connectors/wallets"
 
-	"github.com/lugondev/signer-key-manager/src/auth/service/authorizator"
-	"github.com/lugondev/signer-key-manager/src/stores/entities"
+	"github.com/lugondev/wallet-signer-manager/src/auth/service/authorizator"
+	"github.com/lugondev/wallet-signer-manager/src/stores/entities"
 
-	"github.com/lugondev/signer-key-manager/src/auth"
+	"github.com/lugondev/wallet-signer-manager/src/auth"
 
-	"github.com/lugondev/signer-key-manager/pkg/errors"
-	authtypes "github.com/lugondev/signer-key-manager/src/auth/entities"
-	"github.com/lugondev/signer-key-manager/src/stores"
+	"github.com/lugondev/wallet-signer-manager/pkg/errors"
+	authtypes "github.com/lugondev/wallet-signer-manager/src/auth/entities"
+	"github.com/lugondev/wallet-signer-manager/src/stores"
 )
 
 func (c *Connector) Wallet(ctx context.Context, storeName string, userInfo *authtypes.UserInfo) (stores.WalletStore, error) {

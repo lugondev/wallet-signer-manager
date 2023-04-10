@@ -5,7 +5,7 @@ import (
 	"net"
 	"net/http"
 
-	"github.com/lugondev/signer-key-manager/pkg/net/dialer"
+	"github.com/lugondev/wallet-signer-manager/pkg/net/dialer"
 	"golang.org/x/net/http2"
 )
 

@@ -2,7 +2,7 @@ package stores
 
 import (
 	"context"
-	"github.com/lugondev/signer-key-manager/src/stores/entities"
+	"github.com/lugondev/wallet-signer-manager/src/stores/entities"
 )
 
 type WalletStore interface {

@@ -5,7 +5,7 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/lugondev/signer-key-manager/pkg/common"
+	"github.com/lugondev/wallet-signer-manager/pkg/common"
 )
 
 type ResponseWriter interface {

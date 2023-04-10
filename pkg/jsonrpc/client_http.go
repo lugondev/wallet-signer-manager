@@ -3,9 +3,9 @@ package jsonrpc
 import (
 	"net/http"
 
-	httpclient "github.com/lugondev/signer-key-manager/pkg/http/client"
-	"github.com/lugondev/signer-key-manager/pkg/http/request"
-	"github.com/lugondev/signer-key-manager/pkg/http/response"
+	httpclient "github.com/lugondev/wallet-signer-manager/pkg/http/client"
+	"github.com/lugondev/wallet-signer-manager/pkg/http/request"
+	"github.com/lugondev/wallet-signer-manager/pkg/http/response"
 )
 
 // HTTPClient is a connector to a jsonrpc server

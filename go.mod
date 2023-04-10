@@ -1,4 +1,4 @@
-module github.com/lugondev/signer-key-manager
+module github.com/lugondev/wallet-signer-manager
 
 go 1.19
 

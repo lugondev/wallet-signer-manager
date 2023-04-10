@@ -3,10 +3,10 @@ package stores
 import (
 	"context"
 
-	"github.com/lugondev/signer-key-manager/src/auth/service/authorizator"
-	"github.com/lugondev/signer-key-manager/src/stores/entities"
+	"github.com/lugondev/wallet-signer-manager/src/auth/service/authorizator"
+	"github.com/lugondev/wallet-signer-manager/src/stores/entities"
 
-	authtypes "github.com/lugondev/signer-key-manager/src/auth/entities"
+	authtypes "github.com/lugondev/wallet-signer-manager/src/auth/entities"
 )
 
 func (c *Connector) List(ctx context.Context, storeType string, userInfo *authtypes.UserInfo) ([]string, error) {

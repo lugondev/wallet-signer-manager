@@ -7,7 +7,7 @@ import (
 	"testing"
 
 	"github.com/golang/mock/gomock"
-	"github.com/lugondev/signer-key-manager/pkg/http/testutils"
+	"github.com/lugondev/wallet-signer-manager/pkg/http/testutils"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

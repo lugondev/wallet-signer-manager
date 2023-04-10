@@ -7,7 +7,7 @@ import (
 	"io/ioutil"
 	"os"
 
-	"github.com/lugondev/signer-key-manager/src/infra/tls"
+	"github.com/lugondev/wallet-signer-manager/src/infra/tls"
 )
 
 type Reader struct {

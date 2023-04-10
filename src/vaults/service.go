@@ -3,8 +3,8 @@ package vaults
 import (
 	"context"
 
-	auth "github.com/lugondev/signer-key-manager/src/auth/entities"
-	"github.com/lugondev/signer-key-manager/src/entities"
+	auth "github.com/lugondev/wallet-signer-manager/src/auth/entities"
+	"github.com/lugondev/wallet-signer-manager/src/entities"
 )
 
 //go:generate mockgen -source=service.go -destination=mock/service.go -package=mock

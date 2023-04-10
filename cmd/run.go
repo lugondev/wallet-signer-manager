@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/lugondev/signer-key-manager/cmd/flags"
-	"github.com/lugondev/signer-key-manager/pkg/common"
-	app "github.com/lugondev/signer-key-manager/src"
-	"github.com/lugondev/signer-key-manager/src/infra/log/zap"
+	"github.com/lugondev/wallet-signer-manager/cmd/flags"
+	"github.com/lugondev/wallet-signer-manager/pkg/common"
+	app "github.com/lugondev/wallet-signer-manager/src"
+	"github.com/lugondev/wallet-signer-manager/src/infra/log/zap"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )

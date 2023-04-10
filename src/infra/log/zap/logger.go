@@ -1,7 +1,7 @@
 package zap
 
 import (
-	"github.com/lugondev/signer-key-manager/src/infra/log"
+	"github.com/lugondev/wallet-signer-manager/src/infra/log"
 	"go.elastic.co/ecszap"
 	"go.uber.org/zap"
 )

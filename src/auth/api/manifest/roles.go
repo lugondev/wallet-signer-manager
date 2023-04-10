@@ -3,13 +3,13 @@ package manifest
 import (
 	"context"
 
-	entities2 "github.com/lugondev/signer-key-manager/src/entities"
+	entities2 "github.com/lugondev/wallet-signer-manager/src/entities"
 
-	"github.com/lugondev/signer-key-manager/pkg/errors"
-	"github.com/lugondev/signer-key-manager/pkg/json"
-	"github.com/lugondev/signer-key-manager/src/auth"
-	"github.com/lugondev/signer-key-manager/src/auth/api/types"
-	"github.com/lugondev/signer-key-manager/src/auth/entities"
+	"github.com/lugondev/wallet-signer-manager/pkg/errors"
+	"github.com/lugondev/wallet-signer-manager/pkg/json"
+	"github.com/lugondev/wallet-signer-manager/src/auth"
+	"github.com/lugondev/wallet-signer-manager/src/auth/api/types"
+	"github.com/lugondev/wallet-signer-manager/src/auth/entities"
 )
 
 type RolesHandler struct {

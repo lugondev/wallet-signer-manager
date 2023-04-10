@@ -8,8 +8,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/lugondev/signer-key-manager/src/auth/entities"
-	apikey "github.com/lugondev/signer-key-manager/src/infra/api-key"
+	"github.com/lugondev/wallet-signer-manager/src/auth/entities"
+	apikey "github.com/lugondev/wallet-signer-manager/src/infra/api-key"
 )
 
 const (

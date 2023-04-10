@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/lugondev/signer-key-manager/cmd"
+	"github.com/lugondev/wallet-signer-manager/cmd"
 	log "github.com/sirupsen/logrus"
 )
 

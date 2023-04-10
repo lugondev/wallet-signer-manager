@@ -3,7 +3,7 @@ package flags
 import (
 	"fmt"
 
-	"github.com/lugondev/signer-key-manager/src/infra/api-key/csv"
+	"github.com/lugondev/wallet-signer-manager/src/infra/api-key/csv"
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
 )

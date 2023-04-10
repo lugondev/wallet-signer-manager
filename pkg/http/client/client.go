@@ -3,7 +3,7 @@ package httpclient
 import (
 	"net/http"
 
-	"github.com/lugondev/signer-key-manager/pkg/http/transport"
+	"github.com/lugondev/wallet-signer-manager/pkg/http/transport"
 )
 
 // Client is an HTTP client

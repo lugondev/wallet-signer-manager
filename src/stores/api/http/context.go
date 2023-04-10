@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/gorilla/mux"
-	"github.com/lugondev/signer-key-manager/pkg/common"
+	"github.com/lugondev/wallet-signer-manager/pkg/common"
 	"net/http"
 	"strings"
 )

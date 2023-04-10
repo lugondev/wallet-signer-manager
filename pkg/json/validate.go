@@ -3,7 +3,7 @@ package json
 import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/go-playground/validator/v10"
-	"github.com/lugondev/signer-key-manager/src/entities"
+	"github.com/lugondev/wallet-signer-manager/src/entities"
 )
 
 var (

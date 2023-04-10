@@ -5,7 +5,7 @@ import (
 	"crypto/x509"
 	"fmt"
 
-	"github.com/lugondev/signer-key-manager/pkg/tls/certificate"
+	"github.com/lugondev/wallet-signer-manager/pkg/tls/certificate"
 )
 
 var (

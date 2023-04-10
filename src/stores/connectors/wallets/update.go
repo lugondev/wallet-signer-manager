@@ -4,11 +4,11 @@ import (
 	"context"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 
-	authtypes "github.com/lugondev/signer-key-manager/src/auth/entities"
+	authtypes "github.com/lugondev/wallet-signer-manager/src/auth/entities"
 
-	"github.com/lugondev/signer-key-manager/pkg/errors"
-	"github.com/lugondev/signer-key-manager/src/stores/database"
-	"github.com/lugondev/signer-key-manager/src/stores/entities"
+	"github.com/lugondev/wallet-signer-manager/pkg/errors"
+	"github.com/lugondev/wallet-signer-manager/src/stores/database"
+	"github.com/lugondev/wallet-signer-manager/src/stores/entities"
 )
 
 func (c Connector) Update(ctx context.Context, pubkey string, attr *entities.Attributes) (*entities.Wallet, error) {

@@ -4,12 +4,12 @@ import (
 	"context"
 	"time"
 
-	auth "github.com/lugondev/signer-key-manager/src/auth/entities"
-	"github.com/lugondev/signer-key-manager/src/entities"
+	auth "github.com/lugondev/wallet-signer-manager/src/auth/entities"
+	"github.com/lugondev/wallet-signer-manager/src/entities"
 
-	"github.com/lugondev/signer-key-manager/pkg/errors"
-	"github.com/lugondev/signer-key-manager/src/infra/hashicorp/client"
-	"github.com/lugondev/signer-key-manager/src/infra/hashicorp/token"
+	"github.com/lugondev/wallet-signer-manager/pkg/errors"
+	"github.com/lugondev/wallet-signer-manager/src/infra/hashicorp/client"
+	"github.com/lugondev/wallet-signer-manager/src/infra/hashicorp/token"
 )
 
 func (c *Vaults) CreateHashicorp(_ context.Context, name string, config *entities.HashicorpConfig, allowedTenants []string, _ *auth.UserInfo) error {

@@ -3,7 +3,7 @@ package response
 import (
 	"net/http"
 
-	"github.com/lugondev/signer-key-manager/pkg/http/header"
+	"github.com/lugondev/wallet-signer-manager/pkg/http/header"
 )
 
 func HeadersModifier(h func(http.Header) error) Modifier {

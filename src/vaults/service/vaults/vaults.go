@@ -4,11 +4,11 @@ import (
 	"context"
 	"sync"
 
-	"github.com/lugondev/signer-key-manager/pkg/errors"
-	"github.com/lugondev/signer-key-manager/src/auth"
-	"github.com/lugondev/signer-key-manager/src/entities"
-	"github.com/lugondev/signer-key-manager/src/infra/log"
-	"github.com/lugondev/signer-key-manager/src/vaults"
+	"github.com/lugondev/wallet-signer-manager/pkg/errors"
+	"github.com/lugondev/wallet-signer-manager/src/auth"
+	"github.com/lugondev/wallet-signer-manager/src/entities"
+	"github.com/lugondev/wallet-signer-manager/src/infra/log"
+	"github.com/lugondev/wallet-signer-manager/src/vaults"
 )
 
 type Vaults struct {

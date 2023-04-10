@@ -3,7 +3,7 @@ package database
 import (
 	"context"
 
-	"github.com/lugondev/signer-key-manager/src/stores/entities"
+	"github.com/lugondev/wallet-signer-manager/src/stores/entities"
 )
 
 //go:generate mockgen -source=database.go -destination=mock/database.go -package=mock

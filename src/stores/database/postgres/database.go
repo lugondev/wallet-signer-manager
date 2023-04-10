@@ -3,11 +3,11 @@ package postgres
 import (
 	"context"
 
-	"github.com/lugondev/signer-key-manager/pkg/errors"
+	"github.com/lugondev/wallet-signer-manager/pkg/errors"
 
-	"github.com/lugondev/signer-key-manager/src/infra/log"
-	"github.com/lugondev/signer-key-manager/src/infra/postgres"
-	"github.com/lugondev/signer-key-manager/src/stores/database"
+	"github.com/lugondev/wallet-signer-manager/src/infra/log"
+	"github.com/lugondev/wallet-signer-manager/src/infra/postgres"
+	"github.com/lugondev/wallet-signer-manager/src/stores/database"
 )
 
 type Database struct {

@@ -2,13 +2,13 @@ package src
 
 import (
 	"encoding/json"
-	"github.com/lugondev/signer-key-manager/pkg/http/server"
-	"github.com/lugondev/signer-key-manager/src/infra/api-key/csv"
-	"github.com/lugondev/signer-key-manager/src/infra/jwt/jose"
-	"github.com/lugondev/signer-key-manager/src/infra/log/zap"
-	manifestreader "github.com/lugondev/signer-key-manager/src/infra/manifests/yaml"
-	"github.com/lugondev/signer-key-manager/src/infra/postgres/client"
-	tls "github.com/lugondev/signer-key-manager/src/infra/tls/filesystem"
+	"github.com/lugondev/wallet-signer-manager/pkg/http/server"
+	"github.com/lugondev/wallet-signer-manager/src/infra/api-key/csv"
+	"github.com/lugondev/wallet-signer-manager/src/infra/jwt/jose"
+	"github.com/lugondev/wallet-signer-manager/src/infra/log/zap"
+	manifestreader "github.com/lugondev/wallet-signer-manager/src/infra/manifests/yaml"
+	"github.com/lugondev/wallet-signer-manager/src/infra/postgres/client"
+	tls "github.com/lugondev/wallet-signer-manager/src/infra/tls/filesystem"
 )
 
 type Config struct {

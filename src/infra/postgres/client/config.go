@@ -5,11 +5,11 @@ import (
 	"io/ioutil"
 	"time"
 
-	"github.com/lugondev/signer-key-manager/pkg/tls/certificate"
+	"github.com/lugondev/wallet-signer-manager/pkg/tls/certificate"
 
 	"github.com/go-pg/pg/v10"
 
-	"github.com/lugondev/signer-key-manager/pkg/tls"
+	"github.com/lugondev/wallet-signer-manager/pkg/tls"
 )
 
 const (

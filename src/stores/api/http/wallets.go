@@ -4,18 +4,18 @@ import (
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"net/http"
 
-	"github.com/lugondev/signer-key-manager/src/stores/api/formatters"
+	"github.com/lugondev/wallet-signer-manager/src/stores/api/formatters"
 
-	auth "github.com/lugondev/signer-key-manager/src/auth/api/http"
+	auth "github.com/lugondev/wallet-signer-manager/src/auth/api/http"
 
-	infrahttp "github.com/lugondev/signer-key-manager/src/infra/http"
+	infrahttp "github.com/lugondev/wallet-signer-manager/src/infra/http"
 
 	"github.com/gorilla/mux"
-	"github.com/lugondev/signer-key-manager/pkg/errors"
-	jsonutils "github.com/lugondev/signer-key-manager/pkg/json"
-	"github.com/lugondev/signer-key-manager/src/stores"
-	"github.com/lugondev/signer-key-manager/src/stores/api/types"
-	"github.com/lugondev/signer-key-manager/src/stores/entities"
+	"github.com/lugondev/wallet-signer-manager/pkg/errors"
+	jsonutils "github.com/lugondev/wallet-signer-manager/pkg/json"
+	"github.com/lugondev/wallet-signer-manager/src/stores"
+	"github.com/lugondev/wallet-signer-manager/src/stores/api/types"
+	"github.com/lugondev/wallet-signer-manager/src/stores/entities"
 )
 
 type WalletsHandler struct {

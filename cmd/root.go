@@ -3,7 +3,7 @@ package cmd
 import (
 	"strings"
 
-	"github.com/lugondev/signer-key-manager/src/infra/log/zap"
+	"github.com/lugondev/wallet-signer-manager/src/infra/log/zap"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"

@@ -7,7 +7,7 @@ package mock
 import (
 	context "context"
 	tls "crypto/tls"
-	entities "github.com/lugondev/signer-key-manager/src/auth/entities"
+	entities "github.com/lugondev/wallet-signer-manager/src/auth/entities"
 	gomock "github.com/golang/mock/gomock"
 	reflect "reflect"
 )

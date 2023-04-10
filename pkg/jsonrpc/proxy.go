@@ -3,7 +3,7 @@ package jsonrpc
 import (
 	"net/http"
 
-	"github.com/lugondev/signer-key-manager/pkg/http/proxy"
+	"github.com/lugondev/wallet-signer-manager/pkg/http/proxy"
 )
 
 // HandleProxyRoundTripError allows to transform a ProxiedRoundTrip Error

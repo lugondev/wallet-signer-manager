@@ -2,13 +2,13 @@ package stores
 
 import (
 	"context"
-	"github.com/lugondev/signer-key-manager/pkg/errors"
-	authtypes "github.com/lugondev/signer-key-manager/src/auth/entities"
-	"github.com/lugondev/signer-key-manager/src/stores"
-	"github.com/lugondev/signer-key-manager/src/stores/entities"
-	"github.com/lugondev/signer-key-manager/src/stores/store/wallets/hashicorp"
+	"github.com/lugondev/wallet-signer-manager/pkg/errors"
+	authtypes "github.com/lugondev/wallet-signer-manager/src/auth/entities"
+	"github.com/lugondev/wallet-signer-manager/src/stores"
+	"github.com/lugondev/wallet-signer-manager/src/stores/entities"
+	"github.com/lugondev/wallet-signer-manager/src/stores/store/wallets/hashicorp"
 
-	hashicorpinfra "github.com/lugondev/signer-key-manager/src/infra/hashicorp"
+	hashicorpinfra "github.com/lugondev/wallet-signer-manager/src/infra/hashicorp"
 )
 
 func (c *Connector) CreateWallet(ctx context.Context, name string, allowedTenants []string, userInfo *authtypes.UserInfo) error {

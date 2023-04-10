@@ -9,9 +9,9 @@ import (
 	"net"
 	"time"
 
-	"github.com/lugondev/signer-key-manager/pkg/errors"
-	"github.com/lugondev/signer-key-manager/pkg/tcp"
-	"github.com/lugondev/signer-key-manager/pkg/tls"
+	"github.com/lugondev/wallet-signer-manager/pkg/errors"
+	"github.com/lugondev/wallet-signer-manager/pkg/tcp"
+	"github.com/lugondev/wallet-signer-manager/pkg/tls"
 )
 
 type TLSDialer struct {

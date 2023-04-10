@@ -7,10 +7,10 @@ import (
 	"path/filepath"
 
 	"github.com/go-playground/validator/v10"
-	"github.com/lugondev/signer-key-manager/src/entities"
+	"github.com/lugondev/wallet-signer-manager/src/entities"
 	"gopkg.in/yaml.v2"
 
-	"github.com/lugondev/signer-key-manager/src/infra/manifests"
+	"github.com/lugondev/wallet-signer-manager/src/infra/manifests"
 )
 
 type Reader struct {

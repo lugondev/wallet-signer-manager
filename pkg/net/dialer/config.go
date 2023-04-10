@@ -3,7 +3,7 @@ package dialer
 import (
 	"time"
 
-	"github.com/lugondev/signer-key-manager/pkg/json"
+	"github.com/lugondev/wallet-signer-manager/pkg/json"
 )
 
 type Config struct {

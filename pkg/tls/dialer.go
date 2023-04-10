@@ -6,7 +6,7 @@ import (
 	"net"
 	"strings"
 
-	"github.com/lugondev/signer-key-manager/pkg/tcp"
+	"github.com/lugondev/wallet-signer-manager/pkg/tcp"
 )
 
 type Dialer struct {

@@ -3,7 +3,7 @@ package roles
 import (
 	"context"
 
-	"github.com/lugondev/signer-key-manager/src/auth/entities"
+	"github.com/lugondev/wallet-signer-manager/src/auth/entities"
 )
 
 func (i *Roles) List(_ context.Context, _ *entities.UserInfo) ([]string, error) {

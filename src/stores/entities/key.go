@@ -1,6 +1,6 @@
 package entities
 
-import "github.com/lugondev/signer-key-manager/src/entities"
+import "github.com/lugondev/wallet-signer-manager/src/entities"
 
 // Key public part of a key
 type Key struct {

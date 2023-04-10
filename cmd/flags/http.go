@@ -7,7 +7,7 @@ import (
 	"io/ioutil"
 	"os"
 
-	"github.com/lugondev/signer-key-manager/pkg/http/server"
+	"github.com/lugondev/wallet-signer-manager/pkg/http/server"
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
 )

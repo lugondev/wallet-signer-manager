@@ -7,7 +7,7 @@ import (
 
 	"github.com/ethereum/go-ethereum/crypto"
 
-	"github.com/lugondev/signer-key-manager/src/stores/entities"
+	"github.com/lugondev/wallet-signer-manager/src/stores/entities"
 )
 
 type Wallet struct {

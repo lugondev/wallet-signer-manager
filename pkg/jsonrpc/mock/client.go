@@ -7,7 +7,7 @@ package mock
 import (
 	reflect "reflect"
 
-	jsonrpc "github.com/lugondev/signer-key-manager/pkg/jsonrpc"
+	jsonrpc "github.com/lugondev/wallet-signer-manager/pkg/jsonrpc"
 	gomock "github.com/golang/mock/gomock"
 )
 

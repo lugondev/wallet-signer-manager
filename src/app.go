@@ -3,17 +3,17 @@ package src
 import (
 	"context"
 	"crypto/x509"
-	"github.com/lugondev/signer-key-manager/pkg/app"
-	authapp "github.com/lugondev/signer-key-manager/src/auth/app"
-	authtypes "github.com/lugondev/signer-key-manager/src/auth/entities"
-	"github.com/lugondev/signer-key-manager/src/infra/api-key/csv"
-	"github.com/lugondev/signer-key-manager/src/infra/jwt"
-	"github.com/lugondev/signer-key-manager/src/infra/jwt/jose"
-	"github.com/lugondev/signer-key-manager/src/infra/log"
-	"github.com/lugondev/signer-key-manager/src/infra/postgres/client"
-	tls "github.com/lugondev/signer-key-manager/src/infra/tls/filesystem"
-	storesapp "github.com/lugondev/signer-key-manager/src/stores/app"
-	vaultsapp "github.com/lugondev/signer-key-manager/src/vaults/app"
+	"github.com/lugondev/wallet-signer-manager/pkg/app"
+	authapp "github.com/lugondev/wallet-signer-manager/src/auth/app"
+	authtypes "github.com/lugondev/wallet-signer-manager/src/auth/entities"
+	"github.com/lugondev/wallet-signer-manager/src/infra/api-key/csv"
+	"github.com/lugondev/wallet-signer-manager/src/infra/jwt"
+	"github.com/lugondev/wallet-signer-manager/src/infra/jwt/jose"
+	"github.com/lugondev/wallet-signer-manager/src/infra/log"
+	"github.com/lugondev/wallet-signer-manager/src/infra/postgres/client"
+	tls "github.com/lugondev/wallet-signer-manager/src/infra/tls/filesystem"
+	storesapp "github.com/lugondev/wallet-signer-manager/src/stores/app"
+	vaultsapp "github.com/lugondev/wallet-signer-manager/src/vaults/app"
 )
 
 func New(ctx context.Context, cfg *Config, logger log.Logger) (*app.App, error) {

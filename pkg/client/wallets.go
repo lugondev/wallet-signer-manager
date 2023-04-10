@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/lugondev/signer-key-manager/src/stores/api/types"
+	"github.com/lugondev/wallet-signer-manager/src/stores/api/types"
 )
 
 const walletPath = "wallets"

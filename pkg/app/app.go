@@ -8,12 +8,12 @@ import (
 	"reflect"
 	"sync"
 
-	"github.com/lugondev/signer-key-manager/src/infra/log"
+	"github.com/lugondev/wallet-signer-manager/src/infra/log"
 
 	gorillamux "github.com/gorilla/mux"
-	"github.com/lugondev/signer-key-manager/pkg/common"
-	"github.com/lugondev/signer-key-manager/pkg/errors"
-	"github.com/lugondev/signer-key-manager/pkg/http/server"
+	"github.com/lugondev/wallet-signer-manager/pkg/common"
+	"github.com/lugondev/wallet-signer-manager/pkg/errors"
+	"github.com/lugondev/wallet-signer-manager/pkg/http/server"
 )
 
 const (

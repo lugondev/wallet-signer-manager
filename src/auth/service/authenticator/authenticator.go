@@ -8,12 +8,12 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/lugondev/signer-key-manager/pkg/errors"
-	"github.com/lugondev/signer-key-manager/pkg/tls"
-	"github.com/lugondev/signer-key-manager/src/auth"
-	"github.com/lugondev/signer-key-manager/src/auth/entities"
-	"github.com/lugondev/signer-key-manager/src/infra/jwt"
-	"github.com/lugondev/signer-key-manager/src/infra/log"
+	"github.com/lugondev/wallet-signer-manager/pkg/errors"
+	"github.com/lugondev/wallet-signer-manager/pkg/tls"
+	"github.com/lugondev/wallet-signer-manager/src/auth"
+	"github.com/lugondev/wallet-signer-manager/src/auth/entities"
+	"github.com/lugondev/wallet-signer-manager/src/infra/jwt"
+	"github.com/lugondev/wallet-signer-manager/src/infra/log"
 )
 
 const (

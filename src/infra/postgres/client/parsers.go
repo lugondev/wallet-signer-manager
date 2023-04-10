@@ -2,7 +2,7 @@ package client
 
 import (
 	"github.com/go-pg/pg/v10"
-	"github.com/lugondev/signer-key-manager/pkg/errors"
+	"github.com/lugondev/wallet-signer-manager/pkg/errors"
 )
 
 func parseErrorResponse(err error) error {

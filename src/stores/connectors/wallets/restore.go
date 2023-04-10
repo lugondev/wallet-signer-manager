@@ -4,10 +4,10 @@ import (
 	"context"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 
-	"github.com/lugondev/signer-key-manager/src/auth/entities"
+	"github.com/lugondev/wallet-signer-manager/src/auth/entities"
 
-	"github.com/lugondev/signer-key-manager/pkg/errors"
-	"github.com/lugondev/signer-key-manager/src/stores/database"
+	"github.com/lugondev/wallet-signer-manager/pkg/errors"
+	"github.com/lugondev/wallet-signer-manager/src/stores/database"
 )
 
 func (c Connector) Restore(ctx context.Context, pubkey string) error {

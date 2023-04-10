@@ -3,7 +3,7 @@ package wallets
 import (
 	"context"
 
-	"github.com/lugondev/signer-key-manager/src/auth/entities"
+	"github.com/lugondev/wallet-signer-manager/src/auth/entities"
 )
 
 func (c Connector) List(ctx context.Context, limit, offset uint64) ([]string, error) {

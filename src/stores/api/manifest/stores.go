@@ -3,11 +3,11 @@ package manifest
 import (
 	"context"
 
-	"github.com/lugondev/signer-key-manager/pkg/errors"
-	authtypes "github.com/lugondev/signer-key-manager/src/auth/entities"
-	entities2 "github.com/lugondev/signer-key-manager/src/entities"
-	"github.com/lugondev/signer-key-manager/src/stores"
-	"github.com/lugondev/signer-key-manager/src/stores/entities"
+	"github.com/lugondev/wallet-signer-manager/pkg/errors"
+	authtypes "github.com/lugondev/wallet-signer-manager/src/auth/entities"
+	entities2 "github.com/lugondev/wallet-signer-manager/src/entities"
+	"github.com/lugondev/wallet-signer-manager/src/stores"
+	"github.com/lugondev/wallet-signer-manager/src/stores/entities"
 )
 
 type StoresHandler struct {

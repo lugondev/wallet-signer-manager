@@ -3,8 +3,8 @@ package client
 import (
 	"context"
 
-	"github.com/lugondev/signer-key-manager/pkg/jsonrpc"
-	storestypes "github.com/lugondev/signer-key-manager/src/stores/api/types"
+	"github.com/lugondev/wallet-signer-manager/pkg/jsonrpc"
+	storestypes "github.com/lugondev/wallet-signer-manager/src/stores/api/types"
 )
 
 type WalletClient interface {

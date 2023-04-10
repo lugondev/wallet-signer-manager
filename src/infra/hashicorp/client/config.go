@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/lugondev/signer-key-manager/src/entities"
+	"github.com/lugondev/wallet-signer-manager/src/entities"
 
 	"github.com/hashicorp/go-retryablehttp"
 	"golang.org/x/net/http2"

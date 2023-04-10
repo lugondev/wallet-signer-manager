@@ -4,14 +4,14 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/lugondev/signer-key-manager/src/auth"
-	rolesapi "github.com/lugondev/signer-key-manager/src/auth/api/manifest"
-	"github.com/lugondev/signer-key-manager/src/entities"
-	manifestreader "github.com/lugondev/signer-key-manager/src/infra/manifests/yaml"
-	"github.com/lugondev/signer-key-manager/src/stores"
-	storesapi "github.com/lugondev/signer-key-manager/src/stores/api/manifest"
-	"github.com/lugondev/signer-key-manager/src/vaults"
-	vaultsapi "github.com/lugondev/signer-key-manager/src/vaults/api/manifest"
+	"github.com/lugondev/wallet-signer-manager/src/auth"
+	rolesapi "github.com/lugondev/wallet-signer-manager/src/auth/api/manifest"
+	"github.com/lugondev/wallet-signer-manager/src/entities"
+	manifestreader "github.com/lugondev/wallet-signer-manager/src/infra/manifests/yaml"
+	"github.com/lugondev/wallet-signer-manager/src/stores"
+	storesapi "github.com/lugondev/wallet-signer-manager/src/stores/api/manifest"
+	"github.com/lugondev/wallet-signer-manager/src/vaults"
+	vaultsapi "github.com/lugondev/wallet-signer-manager/src/vaults/api/manifest"
 )
 
 func initialize(

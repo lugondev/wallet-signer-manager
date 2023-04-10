@@ -2,7 +2,7 @@ package hashicorp
 
 import (
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/lugondev/signer-key-manager/src/stores/entities"
+	"github.com/lugondev/wallet-signer-manager/src/stores/entities"
 	"time"
 
 	"github.com/hashicorp/vault/api"

@@ -3,11 +3,11 @@ package manifest
 import (
 	"context"
 
-	"github.com/lugondev/signer-key-manager/pkg/errors"
-	"github.com/lugondev/signer-key-manager/pkg/json"
-	auth "github.com/lugondev/signer-key-manager/src/auth/entities"
-	"github.com/lugondev/signer-key-manager/src/entities"
-	"github.com/lugondev/signer-key-manager/src/vaults"
+	"github.com/lugondev/wallet-signer-manager/pkg/errors"
+	"github.com/lugondev/wallet-signer-manager/pkg/json"
+	auth "github.com/lugondev/wallet-signer-manager/src/auth/entities"
+	"github.com/lugondev/wallet-signer-manager/src/entities"
+	"github.com/lugondev/wallet-signer-manager/src/vaults"
 )
 
 type VaultsHandler struct {

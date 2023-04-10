@@ -8,13 +8,13 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/lugondev/signer-key-manager/src/infra/hashicorp"
-	"github.com/lugondev/signer-key-manager/src/infra/log"
+	"github.com/lugondev/wallet-signer-manager/src/infra/hashicorp"
+	"github.com/lugondev/wallet-signer-manager/src/infra/log"
 
 	"github.com/fsnotify/fsnotify"
 
 	"github.com/hashicorp/vault/api"
-	"github.com/lugondev/signer-key-manager/pkg/errors"
+	"github.com/lugondev/wallet-signer-manager/pkg/errors"
 )
 
 // RenewTokenWatcher handle the token tokenWatcher of the application

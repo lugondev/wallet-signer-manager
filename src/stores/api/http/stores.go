@@ -5,9 +5,9 @@ import (
 	"strconv"
 
 	"github.com/gorilla/mux"
-	"github.com/lugondev/signer-key-manager/pkg/errors"
-	http2 "github.com/lugondev/signer-key-manager/src/infra/http"
-	"github.com/lugondev/signer-key-manager/src/stores"
+	"github.com/lugondev/wallet-signer-manager/pkg/errors"
+	http2 "github.com/lugondev/wallet-signer-manager/src/infra/http"
+	"github.com/lugondev/wallet-signer-manager/src/stores"
 )
 
 type StoresHandler struct {

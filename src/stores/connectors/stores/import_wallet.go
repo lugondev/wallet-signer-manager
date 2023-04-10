@@ -4,12 +4,12 @@ import (
 	"context"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 
-	"github.com/lugondev/signer-key-manager/src/auth/service/authorizator"
+	"github.com/lugondev/wallet-signer-manager/src/auth/service/authorizator"
 
-	arrays "github.com/lugondev/signer-key-manager/pkg/common"
-	authtypes "github.com/lugondev/signer-key-manager/src/auth/entities"
-	"github.com/lugondev/signer-key-manager/src/stores/database/models"
-	"github.com/lugondev/signer-key-manager/src/stores/entities"
+	arrays "github.com/lugondev/wallet-signer-manager/pkg/common"
+	authtypes "github.com/lugondev/wallet-signer-manager/src/auth/entities"
+	"github.com/lugondev/wallet-signer-manager/src/stores/database/models"
+	"github.com/lugondev/wallet-signer-manager/src/stores/entities"
 )
 
 func (c *Connector) ImportWallets(ctx context.Context, storeName string, userInfo *authtypes.UserInfo) error {
