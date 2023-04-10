@@ -30,7 +30,7 @@ func (m *Auth) Middleware(next http.Handler) http.Handler {
 
 		authHeader := r.Header.Get("Authorization")
 
-		// If Auth header is provided, try JWT or API key
+		// If Extra header is provided, try JWT or API key
 		if authHeader != "" {
 			authHeaderParts := strings.Fields(authHeader)
 			if len(authHeaderParts) != 2 {

@@ -21,15 +21,15 @@ func (c Connector) Create(ctx context.Context, id string, attr *entities.Attribu
 		return nil, err
 	}
 
-	key, err := c.store.Create(ctx, id, attr)
+	wallet, err := c.store.Create(ctx, id, attr)
 	if err != nil && errors.IsAlreadyExistsError(err) {
-		key, err = c.store.Get(ctx, id)
+		wallet, err = c.store.Get(ctx, id)
 	}
 	if err != nil {
 		return nil, err
 	}
 
-	acc, err := c.db.Add(ctx, models.NewWalletFromKey(key, attr))
+	acc, err := c.db.Add(ctx, models.NewWalletFromKey(wallet, attr))
 	if err != nil {
 		return nil, err
 	}

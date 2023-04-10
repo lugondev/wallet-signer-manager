@@ -15,6 +15,7 @@ func FormatWalletResponse(wallet *entities.Wallet) *types.WalletResponse {
 		PublicKey:           hexutil.Encode(wallet.PublicKey),
 		CompressedPublicKey: hexutil.Encode(wallet.CompressedPublicKey),
 		Tags:                wallet.Tags,
+		Extra:               wallet.Extra,
 		Disabled:            wallet.Metadata.Disabled,
 		CreatedAt:           wallet.Metadata.CreatedAt,
 		UpdatedAt:           wallet.Metadata.UpdatedAt,

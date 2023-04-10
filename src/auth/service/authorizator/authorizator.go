@@ -33,7 +33,6 @@ func New(permissions []entities.Permission, tenant string, logger log.Logger) *A
 
 func (author *Authorizator) CheckPermission(ops ...*entities.Operation) error {
 	for _, op := range ops {
-		fmt.Println(op)
 		permission := buildPermission(op.Action, op.Resource)
 		if _, ok := author.permissions[permission]; !ok {
 			errMessage := "user is not authorized to perform this operation"

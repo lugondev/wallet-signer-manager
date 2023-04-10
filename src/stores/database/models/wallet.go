@@ -18,10 +18,12 @@ type Wallet struct {
 	PublicKey           []byte
 	CompressedPublicKey []byte
 	Tags                map[string]string
-	Disabled            bool
-	CreatedAt           time.Time `pg:"default:now()"`
-	UpdatedAt           time.Time `pg:"default:now()"`
-	DeletedAt           time.Time `pg:",soft_delete"`
+	Extra               map[string]interface{}
+
+	Disabled  bool
+	CreatedAt time.Time `pg:"default:now()"`
+	UpdatedAt time.Time `pg:"default:now()"`
+	DeletedAt time.Time `pg:",soft_delete"`
 }
 
 func NewWallet(account *entities.Wallet) *Wallet {
@@ -30,6 +32,7 @@ func NewWallet(account *entities.Wallet) *Wallet {
 		PublicKey:           account.PublicKey,
 		CompressedPublicKey: account.CompressedPublicKey,
 		Tags:                account.Tags,
+		Extra:               account.Extra,
 		Disabled:            account.Metadata.Disabled,
 		CreatedAt:           account.Metadata.CreatedAt,
 		UpdatedAt:           account.Metadata.UpdatedAt,
@@ -43,6 +46,7 @@ func NewWalletFromKey(key *entities.Wallet, attr *entities.Attributes) *entities
 
 	return &entities.Wallet{
 		Tags:                attr.Tags,
+		Extra:               attr.Auth,
 		Pubkey:              strings.ToLower(hex.EncodeToString(compressedPubkey)),
 		PublicKey:           key.PublicKey,
 		CompressedPublicKey: compressedPubkey,
@@ -65,6 +69,7 @@ func (w *Wallet) ToEntity() *entities.Wallet {
 			UpdatedAt: w.UpdatedAt,
 			DeletedAt: w.DeletedAt,
 		},
-		Tags: w.Tags,
+		Tags:  w.Tags,
+		Extra: w.Extra,
 	}
 }

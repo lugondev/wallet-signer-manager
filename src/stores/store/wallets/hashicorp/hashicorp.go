@@ -17,6 +17,7 @@ import (
 const (
 	idLabel                  = "id"
 	tagsLabel                = "tags"
+	extraLabel               = "extra"
 	publicKeyLabel           = "public_key"
 	compressedPublicKeyLabel = "compressed_public_key"
 	namespaceLabel           = "namespace"

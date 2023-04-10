@@ -157,7 +157,7 @@ func NewConfig(opt *Option) (*tls.Config, error) {
 		cfg.RootCAs = pool
 	}
 
-	// Set client Auth type
+	// Set client Extra type
 	if len(opt.ClientAuth) > 0 {
 		clientAuth, err := opt.TLSClientAuth()
 		if err != nil {

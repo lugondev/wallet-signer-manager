@@ -1,7 +1,6 @@
 package http
 
 import (
-	"fmt"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"net/http"
 
@@ -65,8 +64,8 @@ func (h *WalletsHandler) create(rw http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	fmt.Println(auth.UserInfoFromContext(ctx))
-	walletStore, err := h.stores.Wallet(ctx, StoreNameFromContext(request.Context()), auth.UserInfoFromContext(ctx))
+	userAuth := auth.UserInfoFromContext(ctx)
+	walletStore, err := h.stores.Wallet(ctx, StoreNameFromContext(request.Context()), userAuth)
 	if err != nil {
 		infrahttp.WriteHTTPErrorResponse(rw, err)
 		return
@@ -79,7 +78,7 @@ func (h *WalletsHandler) create(rw http.ResponseWriter, request *http.Request) {
 		keyID = generateRandomKeyID()
 	}
 
-	wallet, err := walletStore.Create(ctx, keyID, &entities.Attributes{Tags: createReq.Tags})
+	wallet, err := walletStore.Create(ctx, keyID, &entities.Attributes{Tags: createReq.Tags, Auth: auth.UserInfoToMap(userAuth)})
 	if err != nil {
 		infrahttp.WriteHTTPErrorResponse(rw, err)
 		return
@@ -116,8 +115,8 @@ func (h *WalletsHandler) importAccount(rw http.ResponseWriter, request *http.Req
 		return
 	}
 
-	fmt.Println("createReq:", StoreNameFromContext(request.Context()))
-	walletStore, err := h.stores.Wallet(ctx, StoreNameFromContext(request.Context()), auth.UserInfoFromContext(ctx))
+	userAuth := auth.UserInfoFromContext(ctx)
+	walletStore, err := h.stores.Wallet(ctx, StoreNameFromContext(request.Context()), userAuth)
 	if err != nil {
 		infrahttp.WriteHTTPErrorResponse(rw, err)
 		return
@@ -130,7 +129,7 @@ func (h *WalletsHandler) importAccount(rw http.ResponseWriter, request *http.Req
 		keyID = generateRandomKeyID()
 	}
 
-	wallet, err := walletStore.Import(ctx, keyID, importReq.PrivateKey, &entities.Attributes{Tags: importReq.Tags})
+	wallet, err := walletStore.Import(ctx, keyID, importReq.PrivateKey, &entities.Attributes{Tags: importReq.Tags, Auth: auth.UserInfoToMap(userAuth)})
 	if err != nil {
 		infrahttp.WriteHTTPErrorResponse(rw, err)
 		return
@@ -168,13 +167,14 @@ func (h *WalletsHandler) update(rw http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	walletStore, err := h.stores.Wallet(ctx, StoreNameFromContext(ctx), auth.UserInfoFromContext(ctx))
+	userAuth := auth.UserInfoFromContext(ctx)
+	walletStore, err := h.stores.Wallet(ctx, StoreNameFromContext(ctx), userAuth)
 	if err != nil {
 		infrahttp.WriteHTTPErrorResponse(rw, err)
 		return
 	}
 
-	wallet, err := walletStore.Update(ctx, getPubkey(request), &entities.Attributes{Tags: updateReq.Tags})
+	wallet, err := walletStore.Update(ctx, getPubkey(request), &entities.Attributes{Tags: updateReq.Tags, Auth: auth.UserInfoToMap(userAuth)})
 	if err != nil {
 		infrahttp.WriteHTTPErrorResponse(rw, err)
 		return

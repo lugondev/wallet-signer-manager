@@ -7,4 +7,5 @@ type Wallet struct {
 	CompressedPublicKey []byte
 	Metadata            *Metadata
 	Tags                map[string]string
+	Extra               map[string]interface{}
 }

@@ -29,6 +29,9 @@ type Attributes struct {
 
 	// Tags attached to a stored item
 	Tags map[string]string
+
+	// Auth data
+	Auth map[string]interface{}
 }
 
 type Recovery struct {

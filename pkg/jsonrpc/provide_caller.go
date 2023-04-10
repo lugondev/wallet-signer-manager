@@ -16,7 +16,7 @@ var (
 // ProvideCaller takes a list of user defines callers as argument and
 // automatically populates all caller's fields with RPC functions
 //
-// It aims at facilitate the implementation of Web3 client connecting to downstream node
+// # It aims at facilitate the implementation of Web3 client connecting to downstream node
 //
 // - Caller MUST be pointers to struct
 // - All caller's fields MUST be functions mathc
@@ -25,20 +25,20 @@ var (
 //
 // Example of valid caller struct:
 //
-// type ExampleCaller struct {
-// 	   CtxInput_NoOutput        func(Client) func(context.Context)
-// 	   NoInput_NoOutput         func(Client) func()
-// 	   NonCtxInput_NoOutput     func(Client) func(int)
-// 	   MultiInput_NoOutput      func(Client) func(context.Context, int, string)
-// 	   NoInput_ErrorOutput      func(Client) func() error
-// 	   NoInput_IntOutput        func(Client) func() int
-// 	   NoInput_IntErrorOutput   func(Client) func() (int, error)
-// 	   StructInput_StructOutput func(Client) func(context.Context, *TestParam) (*TestResult, error)
-// 	   AllTags                  func(Client) func()                                                 `method:"exampleMethod" namespace:"eth"`
-// 	   MethodTag                func(Client) func()                                                 `method:"exampleMethod"`
-// 	   NamespaceTag             func(Client) func()                                                 `namespace:"eth"`
-// 	   ObjectTag                func(Client) func(*TestParam)                                       `object:"-"`
-// }
+//	type ExampleCaller struct {
+//		   CtxInput_NoOutput        func(Client) func(context.Context)
+//		   NoInput_NoOutput         func(Client) func()
+//		   NonCtxInput_NoOutput     func(Client) func(int)
+//		   MultiInput_NoOutput      func(Client) func(context.Context, int, string)
+//		   NoInput_ErrorOutput      func(Client) func() error
+//		   NoInput_IntOutput        func(Client) func() int
+//		   NoInput_IntErrorOutput   func(Client) func() (int, error)
+//		   StructInput_StructOutput func(Client) func(context.Context, *TestParam) (*TestResult, error)
+//		   AllTags                  func(Client) func()                                                 `method:"exampleMethod" namespace:"eth"`
+//		   MethodTag                func(Client) func()                                                 `method:"exampleMethod"`
+//		   NamespaceTag             func(Client) func()                                                 `namespace:"eth"`
+//		   ObjectTag                func(Client) func(*TestParam)                                       `object:"-"`
+//	}
 func ProvideCaller(callers ...interface{}) error {
 	for _, caller := range callers {
 		cllrTyp := reflect.TypeOf(caller)

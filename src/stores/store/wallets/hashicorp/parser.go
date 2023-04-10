@@ -3,6 +3,7 @@ package hashicorp
 import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/lugondev/signer-key-manager/src/stores/entities"
+	"time"
 
 	"github.com/hashicorp/vault/api"
 )
@@ -20,7 +21,8 @@ func parseAPISecretToWallet(hashicorpSecret *api.Secret) (*entities.Wallet, erro
 		Metadata: &entities.Metadata{
 			Disabled: false,
 		},
-		Tags: make(map[string]string),
+		Tags:  make(map[string]string),
+		Extra: make(map[string]interface{}),
 	}
 
 	if hashicorpSecret.Data[tagsLabel] != nil {
@@ -30,8 +32,20 @@ func parseAPISecretToWallet(hashicorpSecret *api.Secret) (*entities.Wallet, erro
 		}
 	}
 
-	//key.Metadata.CreatedAt, _ = time.Parse(time.RFC3339, hashicorpSecret.Data[createdAtLabel].(string))
-	//key.Metadata.UpdatedAt, _ = time.Parse(time.RFC3339, hashicorpSecret.Data[updatedAtLabel].(string))
+	if hashicorpSecret.Data[extraLabel] != nil {
+		auth := hashicorpSecret.Data[extraLabel].(map[string]interface{})
+		for k, v := range auth {
+			key.Extra[k] = v
+		}
+	}
+
+	if hashicorpSecret.Data[createdAtLabel] != nil {
+		key.Metadata.CreatedAt, _ = time.Parse(time.RFC3339, hashicorpSecret.Data[createdAtLabel].(string))
+	}
+
+	if hashicorpSecret.Data[updatedAtLabel] != nil {
+		key.Metadata.UpdatedAt, _ = time.Parse(time.RFC3339, hashicorpSecret.Data[updatedAtLabel].(string))
+	}
 
 	return key, nil
 }
