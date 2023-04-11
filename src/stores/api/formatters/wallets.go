@@ -5,7 +5,7 @@ import (
 	"github.com/btcsuite/btcd/chaincfg"
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/lugondev/tx-builder/blockchain/bitcoin"
+	"github.com/lugondev/tx-builder/pkg/blockchain/bitcoin/chain"
 	"github.com/lugondev/wallet-signer-manager/src/stores/api/types"
 	"github.com/lugondev/wallet-signer-manager/src/stores/entities"
 )
@@ -39,11 +39,11 @@ func FormatAddressesResponse(wallets *entities.Wallet) *types.AddressesResponse 
 	if err != nil {
 		return nil
 	}
-	testnet3 := bitcoin.PubkeyToAddresses(parsePubKey, &chaincfg.TestNet3Params)
-	mainnet := bitcoin.PubkeyToAddresses(parsePubKey, &chaincfg.MainNetParams)
+	testnet3 := chain.PubkeyToAddresses(parsePubKey, &chaincfg.TestNet3Params)
+	mainnet := chain.PubkeyToAddresses(parsePubKey, &chaincfg.MainNetParams)
 	return &types.AddressesResponse{
 		Evm: crypto.PubkeyToAddress(*pubkey),
-		Bitcoin: map[types.BitcoinNet]bitcoin.KeyAddresses{
+		Bitcoin: map[types.BitcoinNet]chain.KeyAddresses{
 			types.BtcMainnet:  mainnet,
 			types.BtcTestnet3: testnet3,
 		},

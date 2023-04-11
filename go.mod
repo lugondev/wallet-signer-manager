@@ -20,7 +20,7 @@ require (
 	github.com/hashicorp/vault/api v1.9.0
 	github.com/justinas/alice v1.2.0
 	github.com/lib/pq v1.10.1
-	github.com/lugondev/tx-builder v0.1.1
+	github.com/lugondev/tx-builder v0.1.5
 	github.com/oxtoacart/bpool v0.0.0-20190530202638-03653db5a59c
 	github.com/sirupsen/logrus v1.8.1
 	github.com/spf13/cobra v1.5.0
@@ -35,13 +35,9 @@ require (
 )
 
 require (
-	github.com/aead/siphash v1.0.1 // indirect
 	github.com/btcsuite/btcd/btcutil v1.1.3 // indirect
 	github.com/btcsuite/btcd/chaincfg/chainhash v1.0.1 // indirect
 	github.com/btcsuite/btclog v0.0.0-20170628155309-84c8d2346e9f // indirect
-	github.com/btcsuite/btcwallet/wallet/txauthor v1.3.3 // indirect
-	github.com/btcsuite/btcwallet/wallet/txrules v1.2.0 // indirect
-	github.com/btcsuite/btcwallet/wallet/txsizes v1.2.3 // indirect
 	github.com/cenkalti/backoff/v3 v3.0.0 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/decred/dcrd/crypto/blake256 v1.0.0 // indirect
@@ -62,7 +58,6 @@ require (
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/inconshreveable/mousetrap v1.0.0 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
-	github.com/kkdai/bstream v0.0.0-20161212061736-f391b8402d23 // indirect
 	github.com/leodido/go-urn v1.2.0 // indirect
 	github.com/magefile/mage v1.10.0 // indirect
 	github.com/magiconair/properties v1.8.1 // indirect
