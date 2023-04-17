@@ -23,7 +23,8 @@ type UpdateWalletRequest struct {
 }
 
 type SignWalletRequest struct {
-	Data hexutil.Bytes `json:"data" validate:"required" example:"0xfeade..." swaggertype:"string"`
+	Data     hexutil.Bytes `json:"data" validate:"required" example:"0xfeade..." swaggertype:"string"`
+	TypeSign string        `json:"type_sign" validate:"required" example:"ecdsa|eth_sign|taproot" swaggertype:"string"`
 }
 
 type AddressesResponse struct {

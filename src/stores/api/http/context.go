@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/gorilla/mux"
+	"github.com/lugondev/tx-builder/pkg/utils"
 	"github.com/lugondev/wallet-signer-manager/pkg/common"
 	"net/http"
 	"strings"
@@ -31,9 +32,9 @@ func generateRandomKeyID() string {
 }
 
 func getPubkey(request *http.Request) string {
-	pubkeyRequest := strings.ToLower(mux.Vars(request)["pubkey"])
-	if strings.HasPrefix(pubkeyRequest, "0x") {
-		return pubkeyRequest[2:]
+	pubkey, err := utils.ParseHexToCompressedPublicKey(mux.Vars(request)["pubkey"])
+	if err != nil {
+		return ""
 	}
-	return pubkeyRequest
+	return strings.ToLower(pubkey)
 }

@@ -218,7 +218,7 @@ func (h *WalletsHandler) sign(rw http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	signature, err := walletStore.Sign(ctx, getPubkey(request), signPayloadReq.Data)
+	signature, err := walletStore.Sign(ctx, getPubkey(request), signPayloadReq.TypeSign, signPayloadReq.Data)
 	if err != nil {
 		infrahttp.WriteHTTPErrorResponse(rw, err)
 		return

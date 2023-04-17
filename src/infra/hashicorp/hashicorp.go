@@ -19,5 +19,5 @@ type PluginClient interface {
 	ListWallets() (*hashicorp.Secret, error)
 	UpdateWallet(id string, data map[string]interface{}) (*hashicorp.Secret, error)
 	DestroyWallet(id string) error
-	Sign(id string, data []byte) (*hashicorp.Secret, error)
+	Sign(id string, typeSign string, data []byte) (*hashicorp.Secret, error)
 }

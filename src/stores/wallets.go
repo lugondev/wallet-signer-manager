@@ -38,5 +38,5 @@ type WalletStore interface {
 	Destroy(ctx context.Context, pubkey string) error
 
 	// Sign signs data using the specified wallet (not exposed in the API)
-	Sign(ctx context.Context, pubkey string, data []byte) ([]byte, error)
+	Sign(ctx context.Context, pubkey, typeSign string, data []byte) ([]byte, error)
 }

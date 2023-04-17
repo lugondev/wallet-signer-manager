@@ -20,7 +20,7 @@ require (
 	github.com/hashicorp/vault/api v1.9.0
 	github.com/justinas/alice v1.2.0
 	github.com/lib/pq v1.10.1
-	github.com/lugondev/tx-builder v0.1.5
+	github.com/lugondev/tx-builder v0.1.6
 	github.com/oxtoacart/bpool v0.0.0-20190530202638-03653db5a59c
 	github.com/sirupsen/logrus v1.8.1
 	github.com/spf13/cobra v1.5.0

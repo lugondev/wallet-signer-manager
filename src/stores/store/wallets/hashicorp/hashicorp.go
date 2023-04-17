@@ -161,13 +161,13 @@ func (s *Store) Destroy(_ context.Context, pubkey string) error {
 	return nil
 }
 
-func (s *Store) Sign(_ context.Context, pubkey string, data []byte) ([]byte, error) {
+func (s *Store) Sign(_ context.Context, pubkey, typeSign string, data []byte) ([]byte, error) {
 	logger := s.logger.With("pubkey", pubkey)
 	if !strings.HasPrefix(pubkey, "0x") {
 		pubkey = "0x" + pubkey
 	}
 
-	res, err := s.client.Sign(pubkey, data)
+	res, err := s.client.Sign(pubkey, typeSign, data)
 	if err != nil {
 		errMessage := "failed to sign using Hashicorp key"
 		logger.WithError(err).Error(errMessage)

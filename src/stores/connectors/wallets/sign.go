@@ -7,13 +7,13 @@ import (
 	"github.com/ethereum/go-ethereum/crypto"
 )
 
-func (c Connector) Sign(ctx context.Context, pubkey string, data []byte) ([]byte, error) {
+func (c Connector) Sign(ctx context.Context, pubkey, typeSign string, data []byte) ([]byte, error) {
 	logger := c.logger.With("pubkey", pubkey)
 
 	if len(data) != 32 {
 		data = crypto.Keccak256(data)
 	}
-	signature, err := c.sign(ctx, pubkey, data)
+	signature, err := c.sign(ctx, pubkey, typeSign, data)
 	if err != nil {
 		return nil, err
 	}
@@ -22,7 +22,7 @@ func (c Connector) Sign(ctx context.Context, pubkey string, data []byte) ([]byte
 	return signature, nil
 }
 
-func (c Connector) sign(ctx context.Context, pubkey string, data []byte) ([]byte, error) {
+func (c Connector) sign(ctx context.Context, pubkey, typeSign string, data []byte) ([]byte, error) {
 	logger := c.logger.With("pubkey", pubkey)
 
 	err := c.authorizator.CheckPermission(&authtypes.Operation{Action: authtypes.ActionSign, Resource: authtypes.ResourceWallets})
@@ -35,7 +35,7 @@ func (c Connector) sign(ctx context.Context, pubkey string, data []byte) ([]byte
 		return nil, err
 	}
 
-	signature, err := c.store.Sign(ctx, pubkey, data)
+	signature, err := c.store.Sign(ctx, pubkey, typeSign, data)
 	if err != nil {
 		logger.WithError(err).Error("failed to sign payload")
 		return nil, err

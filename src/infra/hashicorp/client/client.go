@@ -7,6 +7,7 @@ import (
 )
 
 const dataLabel = "data"
+const typeSignLabel = "type_sign"
 
 type HashicorpVaultClient struct {
 	client     *api.Client

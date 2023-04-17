@@ -61,9 +61,10 @@ func (c *HashicorpVaultClient) ListWallets() (*api.Secret, error) {
 	return secret, nil
 }
 
-func (c *HashicorpVaultClient) Sign(pubkey string, data []byte) (*api.Secret, error) {
+func (c *HashicorpVaultClient) Sign(pubkey, typeSign string, data []byte) (*api.Secret, error) {
 	secret, err := c.client.Logical().Write(path.Join(c.pathWallets(pubkey), "sign"), map[string]interface{}{
-		dataLabel: hexutil.Encode(data),
+		dataLabel:     hexutil.Encode(data),
+		typeSignLabel: typeSign,
 	})
 	if err != nil {
 		return nil, parseErrorResponse(err)
