@@ -61,7 +61,7 @@ func (c *HTTPClient) UpdateWallet(ctx context.Context, storeName, address string
 }
 
 func (c *HTTPClient) Sign(ctx context.Context, storeName, address string, req *types.SignWalletRequest) (string, error) {
-	reqURL := fmt.Sprintf("%s/%s/%s/sign-message", withURLStore(c.config.URL, storeName), walletPath, address)
+	reqURL := fmt.Sprintf("%s/%s/%s/sign", withURLStore(c.config.URL, storeName), walletPath, address)
 	response, err := postRequest(ctx, c.client, reqURL, req)
 	if err != nil {
 		return "", err
